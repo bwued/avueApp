@@ -1,7 +1,6 @@
 
-ÖÇ»ÛÈË²âÊÔ»·¾³
-
-VUE_APP_NAME=°ÙÍøÖÇ»Û
+===================npm run dev æµ‹è¯•ç¯å¢ƒé…ç½® .env.development========================
+VUE_APP_NAME=æ™ºæ…§äºº
 VUE_APP_OFFCIAL_QR_CODE_PATH=/static/img/sj_code.png
 VUE_APP_SERVICE_QR_CODE_PATH=/static/img/ic_serverCode.jpg
 VUE_APP_SERVICE_PHONE_NUMBER=4006606229
@@ -14,8 +13,8 @@ VUE_APP_CFCA_AUTH_URL=http://baiwang168.com.cn/api
 VUE_APP_COLOR_THEME=black
 VUE_CLI_BABEL_TRANSPILE_MODULES=true
 
-====================================
-VUE_APP_NAME=ÖÇ»ÛÈË
+===================npm run build æ‰“åŒ…dist ç”Ÿäº§ç¯å¢ƒé…ç½® .env.production=================
+VUE_APP_NAME=æ™ºæ…§äºº
 VUE_APP_OFFCIAL_QR_CODE_PATH=/static/img/sj_code.png
 VUE_APP_SERVICE_QR_CODE_PATH=/static/img/ic_serverCode.jpg
 VUE_APP_SERVICE_PHONE_NUMBER=4006606229

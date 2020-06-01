@@ -68,7 +68,11 @@
     </van-list>
     <div v-if="pflag" class="add-btn">
       <span class="pl" @click="showSelectChannel=true"><img src="../../../static/img/gouwuche_jia_o.png" alt="">添加智能计划</span>
-      <span class="pr" @click="gotoPage"><img src="../../../static/img/gouwuche_jia2.png" alt="">添加懒鬼计划</span>
+      <!-- v2懒人计划 ok -->
+      <!-- <span class="pr" @click="gotoPage"><img src="../../../static/img/gouwuche_jia2.png" alt="">添加懒鬼计划</span> -->
+
+      <!-- v3懒鬼计划 dev 先选择信用卡，在选择通道，最后走懒人v2代还计划 20200601 -->
+      <span class="pr" @click="gotoPageV3"><img src="../../../static/img/gouwuche_jia2.png" alt="">添加懒鬼计划V3</span>
     </div>
 
     <div v-else class="add-btn">
@@ -159,7 +163,7 @@ export default {
     this.search()
   },
   mounted() {
-    this.getshow()
+    // this.getshow() // todo 暂时不调用v2懒鬼计划配置项 20200601
   },
   methods: {
     getshow() {
@@ -175,6 +179,9 @@ export default {
     },
     gotoPage() {
       this.$router.push({ path: '/intelligenceV3', query: { url: 'intelligenceV3', title: '懒鬼计划' }})
+    },
+    gotoPageV3() {
+      this.$router.push({ path: '/credit', query: { url: 'credit', title: '懒鬼计划' }})
     },
     search() {
       this.z_sum = this.repay_plan_info.consume_service_fee + this.repay_plan_info.repay_fee

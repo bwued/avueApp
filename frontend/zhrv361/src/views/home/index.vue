@@ -26,24 +26,30 @@
         </li>
       </ul>
     </div>
-    <div class="advertise" @click="$router.push('/noticeList')">
+    <!-- 公告滚动 start -->
+    <!-- <div class="advertise" @click="$router.push('/noticeList')">
       <img src="../../../static/img/img_gfgg.png" class="img" alt="官方">
       <marquee width="100%" behavior="scroll" scrollamount="4" direction="left" bgcolor="#fff">
         <span v-for="(item,index) in noticeList" :key="index" class="text">{{ index+1 }}.{{ item.title }}</span>
       </marquee>
-    </div>
+    </div> -->
+    <!-- 公告滚动 end -->
     <div class="rec-box">
       <recommend />
     </div>
 
-    <div style="height: 6.5rem;">
+    <!-- <div style="height: 6.5rem;">
       <van-swipe :autoplay="3000">
         <van-swipe-item v-for="(item, index) in banner" :key="index" @click="toLink(item)">
           <img v-lazy="item.image_item && item.image_item.url">
         </van-swipe-item>
       </van-swipe>
-    </div>
-    <roll />
+    </div> -->
+
+    <!-- todo 喜报左右滚 start -->
+    <!-- <roll /> -->
+    <!-- todo 喜报左右滚 end -->
+
     <service-recommend />
     <tabbar :home-page="true" />
 	<!-- 弹窗广告 -->
@@ -55,14 +61,21 @@ import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import recommend from './recommend'
 import serviceRecommend from './serviceRecommend'
-import roll from './roll'
+// import roll from './roll'
 import notice from './notice'
 import tabbar from '@/components/tabbar'
 import setJpush from '@/utils/jpush'
 // import topMsg from '@/components/topMsg'
 export default {
   name: 'Home',
-  components: { swiper, swiperSlide, recommend, tabbar, serviceRecommend, roll, notice },
+  components: { 
+    swiper, 
+    swiperSlide, 
+    recommend, 
+    tabbar, 
+    serviceRecommend, 
+    // roll, 
+    notice },
   data() {
     return {
       // banner

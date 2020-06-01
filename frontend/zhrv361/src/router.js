@@ -143,6 +143,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "myCard" */ '@/views/center/myCard')
   },
   {
+    path: '/credit',
+    name: 'credit',
+    meta: { index: 3.1 },
+    component: () => import(/* webpackChunkName: "credit" */ '@/views/v3/credit')
+  },
+  {
     path: '/faq',
     name: 'faq',
     meta: { index: 3.1 },
