@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html style="font-size: 4.0vw">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover"
+    />
+    <!--iOS Safari ( Android 或其他浏览器不会) 会自动识别看起来像电话号码的数字，将其处理为电话号码链接， 关闭电话号码识别：-->
+    <meta name="format-detection" content="telephone=no" />
+    <!-- 指定 iOS 的 safari 顶端状态条的样式 可选default、black、black-translucent-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title></title>
+    <link rel="stylesheet" href="font_1206888_q6i1uxsn5jk.css">
+    <script src="vconsole.min.js"></script>
+    <script src="store.legacy.min.js"></script>
+    <script src="font_1206888_q6i1uxsn5jk.js"></script>
+    <script>
+    var STORE = store
+    var VCONSOLE = {
+      instance: null,
+      init: function() {
+        this.instance = new VConsole({
+          defaultPlugins: ['system', 'network', 'storage'],
+          maxLogNumber: 500,
+        });
+        this.instance.hideSwitch();
+      },
+      show: function() {
+        this.instance && this.instance.showSwitch();
+      },
+      hide: function() {
+        this.instance && this.instance.hideSwitch();
+      },
+    };
+    window.addEventListener('unhandledrejection', function(e) {
+      console.error('unhandledrejection: ', JSON.stringify(e));
+    });
+    window.onerror = function(msg, file, number){
+      console.error('onerror: ', JSON.stringify(msg))
+    }
+    if(!Array.prototype.find){Object.defineProperty(Array.prototype,"find",{value:function(b){if(this==null){throw new TypeError('"this" is null or not defined')}var f=Object(this);var a=f.length>>>0;if(typeof b!=="function"){throw new TypeError("predicate must be a function")}var c=arguments[1];var d=0;while(d<a){var e=f[d];if(b.call(c,e,d,f)){return e}d++}return undefined}})};
+    </script>
+  </head>
+  <body ontouchstart="">
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
