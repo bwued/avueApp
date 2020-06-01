@@ -1,0 +1,264 @@
+@charset "UTF-8";
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "微软雅黑", "PingFang SC", Arial, Helvetica, sans-serif;
+    word-wrap: break-word;
+    color: #333;
+    background-color: #fff;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a,
+input {
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+input,
+textarea {
+    -webkit-user-select: auto;
+    /*webkit浏览器*/
+    margin: 0px;
+    padding: 0px;
+    outline: none;
+}
+
+a,
+input,
+button {
+    outline: none;
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none !important;
+}
+
+img {
+    max-width: 100%;
+    border: 0px;
+}
+
+select,
+input,
+img,
+select {
+    vertical-align: middle;
+}
+
+/* ios解决滑动问题 */
+*,
+*:after,
+*:before {
+    -webkit-overflow-scrolling: touch;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*在移动端上input和textarea边框问题*/
+/*去掉ios上阴影*/
+input,
+textarea {
+    outline: none;
+    -webkit-appearance: none;
+}
+
+/* 单行文本超出隐藏 */
+.limit {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 多行文本超出隐藏 */
+.limit-2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.limit-3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/*清除浮动*/
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix:after {
+    clear: both;
+    content: '.';
+    display: block;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.show {
+    display: block !important;
+}
+
+.none {
+    display: none !important;
+}
+
+/*引入字体图标所需通用样式*/
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+.weui_btn_primary {
+    background-color: #2769cf;
+}
+
+.weui_btn_primary:not(.weui_btn_disabled):active {
+    background-color: #1b62d0;
+}
+
+.card-green {
+    background: linear-gradient(0deg, rgba(3, 205, 85, 1) 0%, rgba(5, 217, 161, 1) 100%);
+}
+
+.card-red {
+    background: linear-gradient(0deg, rgba(248, 86, 86, 1) 0%, rgba(238, 135, 67, 1) 100%);
+}
+
+.card-blue {
+    background: linear-gradient(0deg, rgba(25, 97, 200, 1) 0%, rgba(93, 133, 233, 1) 100%);
+}
+
+.card-yellow {
+    background: linear-gradient(0deg, rgb(244, 216, 106) 0%, rgb(218, 218, 42) 100%);
+}

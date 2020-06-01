@@ -1,0 +1,21 @@
+@media (max-width: 767px)
+.template-5 .left-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url(../img/t11.png) no-repeat left top;
+    width: 1.1rem;
+    height: 3.93rem;
+    background-size: cover;
+}
+
+@media (max-width: 767px)
+.template-5 .right-bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(../img/t12.png) no-repeat right top;
+    width: 1.1rem;
+    height: 3.93rem;
+    background-size: cover;
+}

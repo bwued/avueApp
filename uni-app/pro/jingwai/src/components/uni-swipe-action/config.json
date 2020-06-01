@@ -1,0 +1,10 @@
+{
+	"id": "181",
+	"name": "SwipeAction",
+	"desc": "滑动操作",
+	"url": "swipe-action",
+	"type": "功能组件",
+	"edition": "1.1.5",
+	"path": "https://ext.dcloud.net.cn/plugin?id=181",
+	"update_log": "- 修复 微信小程序 wxs 报错的 Bug"
+}

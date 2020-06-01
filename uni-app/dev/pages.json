@@ -1,0 +1,119 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	{
+	 	"path": "pages/login/login",
+	 	"style": {
+	 		"navigationBarTitleText": "",
+	 		"titleNView": false  //禁用原生导航栏
+	 	}
+	 },
+	 {
+	  	"path": "pages/center/myCard",
+	  	"style": {
+	  		"navigationBarTitleText": "我的银行卡",
+	 		"navigationBarBackgroundColor":"white"
+	  		// "titleNView": false  //禁用原生导航栏
+	  	}
+	  },
+	  {
+	   	"path": "pages/center/addCard",
+	   	"style": {
+	   		"navigationBarTitleText": "添加储蓄卡",
+	  		"navigationBarBackgroundColor":"white"
+	   	}
+	   },
+	 {
+	  	"path": "pages/plan/addPlan",
+	  	"style": {
+	  		"navigationBarTitleText": "选择信用卡",
+			"navigationBarBackgroundColor":"white"
+	  		// "titleNView": false  //禁用原生导航栏
+	  	}
+	  },
+	  {
+	   	"path": "pages/plan/bindCard",
+	   	"style": {
+	   		"navigationBarTitleText": "信用卡签约",
+	  			"navigationBarBackgroundColor":"white"
+	   		// "titleNView": false  //禁用原生导航栏
+	   	}
+	   },
+	  {
+	   	"path": "pages/plan/addChannel",
+	   	"style": {
+	   		"navigationBarTitleText": "确认通道",
+	  			"navigationBarBackgroundColor":"white"
+	   		// "titleNView": false  //禁用原生导航栏
+	   	}
+	   },
+	   {
+	    	"path": "pages/plan/intelligence",
+	    	"style": {
+	    		"navigationBarTitleText": "添加自选通道",
+	   			"navigationBarBackgroundColor":"white"
+	    		// "titleNView": false  //禁用原生导航栏
+	    	}
+	    },
+		{
+		 	"path": "pages/plan/calendar",
+		 	"style": {
+		 		"navigationBarTitleText": "日历",
+					"navigationBarBackgroundColor":"white"
+		 		// "titleNView": false  //禁用原生导航栏
+		 	}
+		 },
+		{
+		 	"path": "pages/plan/intelligence_lazy",
+		 	"style": {
+		 		"navigationBarTitleText": "添加懒鬼计划",
+					"navigationBarBackgroundColor":"white"
+		 		// "titleNView": false  //禁用原生导航栏
+		 	}
+		 },
+	{
+	 	"path": "pages/index/page",
+	 	"style": {
+	 		"navigationBarTitleText": "",
+	 		"titleNView": false  //禁用原生导航栏
+	 	}
+	 },
+		{
+		 	"path": "pages/register/register",
+		 	"style": {
+		 		"navigationBarTitleText": "用户注册",
+				"navigationBarTextStyle":"black"
+		 		// "titleNView": false  //禁用原生导航栏
+		 	}
+		 },
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "智慧人APP",
+				"navigationBarTextStyle":"black"
+				// "titleNView": false  //禁用原生导航栏
+			}
+		},
+		{
+			"path": "pages/sf/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"titleNView": false  //禁用原生导航栏
+			}
+		},
+		{
+			"path": "pages/download/download",
+			"style": {
+				"navigationBarTitleText": "智慧人APP",
+				"navigationBarTextStyle":"black"
+				// "titleNView": false  //禁用原生导航栏
+			}
+		}
+		
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

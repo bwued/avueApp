@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>智慧人下载注册邀请</title>
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="this is my page">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+		<meta content="telephone=no,email=no" name="format-detection" />
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">
+		<link rel="stylesheet" href="css/weui.min.css">
+		<link rel="stylesheet" href="css/jquery-weui.min.css">
+		<link rel="stylesheet" href="css/common.css">
+		<script src="js/tools.js"></script>
+		<script src="js/weixin.js"></script>
+		<script src="js/fastclick1.js"></script>
+		<script src="js/jquery-2.1.4.js"></script>
+		<script src="js/jquery-weui.js"></script>
+		<script src="js/tripledes.js"></script>
+		<script src="js/mode-ecb.js"></script>
+		<script src="js/md5.js"></script>
+		<script src="js/vue.min.js"></script>
+		<style type="text/css">
+			#logo {
+				position: absolute;
+				width: 121px;
+				height: 115px;
+				top: 10px;
+				left: 10px;
+			}
+
+			.weui_cell:before {
+				width: 90%
+			}
+
+			.weui_cells:after,
+			.weui_cells:before {
+				content: " ";
+				position: absolute;
+			}
+
+			.butn {
+				border-radius: 5px;
+				z-index: 1;
+				margin-left: -4.5px;
+				background-color: #f9f75b;
+				font-family: 苹方;
+				text-align: center;
+				line-height: 40px;
+				font-size: 18px;
+				font-weight: ;
+				cursor: pointer;
+				background-image: linear-gradient(360deg, #002aff, #7e91f0);
+				color: #fff
+			}
+
+			.first-div {
+				width: 100%;
+				position: absolute;
+				margin-top: 0;
+				left: 0;
+				top: 32%;
+			}
+
+			.second-div {
+				width: 100%;
+				position: absolute;
+				left: 0;
+				top: 82%;
+			}
+
+			.shadow-div {
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, .4);
+				z-index: 100;
+			}
+
+			.confirm-box {
+				width: 300px;
+				height: 350px;
+				position: fixed;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				background-color: #fff;
+				border-radius: 10px;
+				z-index: 101;
+				font-size: 16px;
+			}
+
+			@media screen and (max-width: 320px) {
+				.confirm-box {
+					width: 262px;
+				}
+			}
+
+			.close-img {
+				position: absolute;
+				right: -22px;
+				top: -26px;
+				width: 26px;
+				height: 26px;
+			}
+
+			.confirm-box .head-div {
+				position: absolute;
+				left: 50%;
+				top: 0;
+				transform: translate(-50%, -50%);
+				background-color: #fff;
+				border-radius: 50%;
+				padding: 16px;
+				box-shadow: 1px 1px 5px 0px rgba(247, 193, 6, 0.7);
+				z-index: 102;
+			}
+
+			.confirm-box .head-top-img {
+				width: 45px;
+				height: 45px;
+				float: left;
+			}
+
+			.confirm-box .bg-alert-img,
+			.confirm-box .content {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+
+			.confirm-box .content {
+				padding: 40px 20px 0 20px;
+				text-align: center;
+			}
+
+			.confirm-box .content input {
+				width: 100%;
+				border: 0;
+				border-radius: 19px;
+				padding: 2px 14px;
+				outline: none;
+				height: 39px;
+				font-size: 16px;
+			}
+
+			.confirm-box .valicode-box {
+				margin-top: 10px;
+			}
+
+			.confirm-box .valicode-box .valicode-input {
+				width: 55%;
+				float: left;
+			}
+
+			.confirm-box .valicode-box .valicode-btn {
+				width: 40%;
+				float: right;
+				background-color: #fff;
+				color: #bc5853;
+				text-align: center;
+				border: 0;
+				border-radius: 19px;
+				height: 39px;
+				line-height: 39px;
+			}
+
+			.confirm-box .tip-text {
+				display: block;
+				color: #ee3121;
+				text-align: left;
+				font-size: 14px;
+				max-height: 40px;
+				margin: 12px 0 4px 14px;
+				overflow: hidden;
+				height: 19px;
+			}
+
+			.confirm-box .download-btn {
+				width: 100%;
+				border-radius: 25px;
+				padding: 12px 14px;
+				outline: none;
+				background: linear-gradient(0deg, rgba(237, 44, 29, 1), rgba(255, 136, 104, 1));
+				color: #fff;
+			}
+		</style>
+	</head>
+
+	<body style="background: #fff url(./appdownload_img/zhihuirenBg.png)no-repeat top left; width:100%; background-size:100%; margin-top: 0px; margin-right: 0px;">
+		<div id="app" style="position: relative;">
+			<!-- <div id="logo">
+				<img src="./images/rlogo.png" style="width: 50%;height: auto;z-index:999999" />
+			</div> -->
+			<div id="Layer1" style=" width:100%; height:100%; z-index:-8;">
+				<img src="./appdownload_img/zhihuirenBg.png" style="width: 100%;height: 100%;z-index:-5" />
+			</div>
+			<div id="inputdiv1" class="first-div">
+				<!-- 下载 -->
+				<div style="width: 100%;position: fixed;bottom:60px;height: 40px;margin-left: auto;margin-right: auto;text-align: center;">
+
+					<img alt="立即注册" src="./appdownload_img/zhihuiren_btn.png" @click="isDialogShow = true" style="width: 222px;" />
+					<p style="padding: 10px 0; font-size: 15px; color: #999;">已有账号？ <a style="color: #ec042a; cursor: pointer;" @click="downlond">直接下载【智慧人】APP</a></p>
+				</div>
+			</div>
+			<div class="shadow-div" v-show="isDialogShow"></div><!-- shadow-div结束 -->
+			<div class="confirm-box" v-show="isDialogShow">
+
+				<img src="images/bg-alert.png" class="bg-alert-img" />
+				<div class="content">
+					<input type="tel" placeholder="请输入注册手机号" v-model="telnum" maxlength="11" />
+					<div class="valicode-box clearfix">
+						<input type="tel" class="valicode-input" placeholder="手机验证码" v-model="valicode" maxlength="6" />
+						<div class="valicode-btn" v-text="timeText" @click="sendMessage"></div>
+					</div>
+					<div class="valicode-box clearfix">
+						<input type="password" placeholder="6~12位登录密码" v-model="password" maxlength="11" />
+					</div>
+					<div class="valicode-box clearfix">
+						<input type="password" placeholder="再次确认密码" v-model="repassword" maxlength="11" />
+					</div>
+					<!-- valicode-box结束 -->
+					<span class="tip-text" v-text="tipText"></span>
+					<div class="download-btn" @click="goDownload">注册下载</div>
+				</div><!-- content结束 -->
+				<img src="images/close.png" class="close-img" @click="closeFn" />
+			</div><!-- confirm-box结束 -->
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#app',
+				data: function data() {
+					return {
+						api: 'http://app.zhr168.com/api',
+						isDialogShow: false, // 是否显示弹窗
+						openid: '', // openid
+						telnum: '', // 手机号码
+						valicode: '', // 验证码
+						codeToken: '', // 验证码token
+						tipText: '', // 提示
+						password: '', //密码
+						repassword: '', // 确认密码
+						referrer: '', // 推荐人手机号码
+						timeText: '获取验证码', // 倒数文本
+						timerDisabled: false, // 是否可以开始计时
+						downLoadType: undefined, // 跳转下载类型
+						upphonenum: ''
+					};
+				},
+				created: function created() {
+					var Request = new Object();
+					Request = this.getRequest();
+					var referrer = Request["referrer"];
+					if (!referrer) {
+						$.toptip('缺少推荐人手机号码！', 'error');
+						window.location.href = 'https://portal.zhr168.com/zhr/regist/#/pages/download/download?agentId=20000&tick'+ new Date().getTime()
+						return;
+					}else{
+						window.location.href = 'https://portal.zhr168.com/zhr/regist/#/pages/index/page?referrer=' + referrer + '&agentId=20000&tick='+ new Date().getTime()
+					}
+					// var url = 'https://portal.zhr168.com/zhr/regist/#/pages/index/page?referrer=13800000002&agentId=20000&tick=1588731758787'
+				    // window.location.href= url
+					var u = navigator.userAgent;
+					var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+					var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+					if (isAndroid) {
+						// 安卓操作系统
+						this.downLoadType = 0;
+					}
+					if (isIOS) {
+						// ios操作系统
+						this.downLoadType = 1;
+					}
+
+				},
+				methods: {
+					// 关闭
+					closeFn: function() {
+						this.isDialogShow = false;
+						this.clearForm();
+					},
+					clearForm: function() {
+						this.telnum = ''; // 手机号码
+						this.valicode = ''; // 验证码
+						this.codeToken = ''; // 验证码token
+						this.tipText = ''; // 提示
+						this.password = ''; //密码
+						this.repassword = ''; // 确认密码
+					},
+
+					// 下载安卓安卓版
+					appdownloadandroid: function() {
+						var src = 'http://120.79.74.34:8080/h5/appdownload/Android/H20190914V1.0.0.apk'
+						var iframe = document.createElement('iframe');
+						iframe.style.display = 'none';
+						iframe.src = "javascript: '<script>location.href=\"" + src + "\"<\/script>'";
+						document.getElementsByTagName('body')[0].appendChild(iframe);
+					},
+					
+					downlond:function(){
+					 window.location.href='uni-build/h5/index.html'
+					},
+					// downlond:function(){
+					// 	console.log('1111')
+					// 	if (this.downLoadType == 0) {
+					// 		// 安卓下载地址
+					// 		window.location.href = "http://d.alphaqr.com/zhihuiren"
+						
+					// 	} else if (this.downLoadType == 1) {
+					// 		// 苹果下载地址
+					// 		window.location.href = "https://testflight.apple.com/join/fO675xIx"
+					// 	}
+					// },
+
+
+					// 立即下载
+					goDownload: function goDownload() {
+						var that = this;
+						if (this.telnum == "") {
+							this.tipText = "*手机号不能为空";
+							return;
+						}
+
+						if (!/^1[3|4|5|6|7|8|9][0-9]\d{8,11}$/.test(this.telnum)) {
+							this.tipText = "*手机号格式有误";
+							return;
+						}
+
+						if (this.valicode == "") {
+							this.tipText = "*验证码不能为空";
+							return;
+						}
+
+						if (!/^[0-9]{6}$/.test(this.valicode)) {
+							this.tipText = "*验证码格式有误";
+							return;
+						}
+
+						if (this.password == "") {
+							this.tipText = "*请输入您的密码";
+							return;
+						}
+
+						if (!/^[a-zA-Z0-9_]{6,12}$/.test(this.password)) {
+							this.tipText = "请输入6-12位密码(数字或字母)";
+							return;
+						}
+						if (this.password !== this.repassword) {
+							this.tipText = "两次输入的密码不一致";
+							return;
+						}
+
+						this.tipText = "";
+						var Request = new Object();
+						Request = this.getRequest();
+						var referrer = Request["referrer"];
+						if (!referrer) {
+							$.toptip('缺少推荐人手机号码！', 'error');
+							return;
+						}
+						if (this.codeToken == "") {
+							$.toptip('请重新获取验证码！', 'error');
+							return;
+						}
+						$.ajax({
+							type: "post",
+							url: this.api + '/anonymous/register',
+							headers: {
+								'Content-Type': 'application/json;charset=utf8'
+							},
+							data: JSON.stringify({
+								code_input: this.valicode,
+								code_token: this.codeToken,
+								username: this.telnum,
+								password: this.password,
+								reference_username: referrer
+							}),
+							beforeSend: function beforeSend() {
+								$.showLoading("正在提交数据...");
+							},
+							complete: function complete() {
+								$.hideLoading();
+							},
+							dataType: "json",
+							contentType: "application/octet-stream; charset=UTF-8",
+							success: function success(data) {
+								console.log(data)
+								if (data.code === '200000') {
+									if (this.downLoadType == 0) {
+										// 安卓下载地址
+										 window.location.href='uni-build/h5/index.html'
+										// window.location.href = "http://d.alphaqr.com/zhihuiren"
+
+									} else if (this.downLoadType == 1) {
+										// 苹果下载地址
+										 window.location.href='uni-build/h5/index.html'
+										// window.location.href = "https://testflight.apple.com/join/fO675xIx"
+									} else {
+										// alert("请在移动端打开进行下载安装");
+										 window.location.href='uni-build/h5/index.html'
+										// window.location.href = "http://d.alphaqr.com/zhihuiren"
+									}
+
+								} else {
+									$.toptip('提交失败，请重试', 'error');
+								}
+							},
+							error: function error(err) {
+								console.log(err)
+								var msg = '连接服务器失败，请重试';
+								if (err.responseJSON) {
+									if (err.responseJSON.msg) {
+										msg = err.responseJSON.msg;
+									}
+								}
+								$.toptip(msg, 'error');
+								setTimeout(function() {
+									that.closeFn();
+								}, 500)
+							}
+						});
+					},
+
+					// 发送验证码
+					sendMessage: function sendMessage() {
+						if (this.timerDisabled) return;
+
+						if (this.telnum == "") {
+							this.tipText = "*手机号不能为空";
+							return;
+						}
+
+						if (!/^1[3|4|5|6|7|8|9][0-9]\d{8,11}$/.test(this.telnum)) {
+							this.tipText = "*手机号格式有误";
+							return;
+						}
+
+						this.tipText = "";
+						$.ajax({
+							type: "post",
+							url: this.api + '/anonymous/sms/code',
+							data: JSON.stringify({
+								"phone": this.telnum
+							}),
+							beforeSend: function beforeSend() {
+								$.showLoading("正在提交数据...");
+								this.getSecond(60);
+								this.tipText = "";
+							},
+							complete: function complete() {
+								$.hideLoading();
+							},
+							dataType: "json",
+							context: this,
+							contentType: "application/octet-stream; charset=UTF-8",
+							headers: {
+								'Content-Type': 'application/json;charset=utf8'
+							},
+							success: function success(data) {
+								if (data.code === '200000') {
+									$.toptip('短信发送成功', 'success');
+									this.codeToken = data.data.token;
+									// alert(this.codeToken)
+								} else {
+									$.toptip(data.msg, 'error');
+								}
+							},
+							error: function error() {
+								$.toptip('连接服务器失败，请重试', 'error');
+							}
+						});
+					},
+
+
+					//倒数计时
+					getSecond: function getSecond(wait) {
+						var _this = this; // 存放上下文
+						var _wait = wait; // 存放总秒数
+
+						if (wait == 0) {
+							this.timerDisabled = false;
+							this.timeText = "重新获取";
+							wait = _wait; // 恢复总秒数
+						} else {
+							this.timerDisabled = true;
+							this.timeText = "(" + wait + "s)";
+							wait--;
+							setTimeout(function() {
+								_this.getSecond(wait);
+							}, 1000);
+						}
+					},
+					getRequest: function getRequest() {
+						var url = location.search;
+						url = decodeURI(url);
+						var theRequest = new Object();
+
+						if (url.indexOf("?") != -1) {
+							var str = url.substr(1);
+							strs = str.split("&");
+
+							for (var i = 0; i < strs.length; i++) {
+								theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+							}
+						}
+
+						return theRequest;
+					}
+				}
+			});
+
+			var u = navigator.userAgent,
+				app = navigator.appVersion
+			var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			$(document).ready(function() {
+				$("input").blur(function() {
+					if (isIOS) {
+						blurAdjust()
+					}
+				});
+			});
+			// 解决苹果不回弹页面
+			function blurAdjust(e) {
+				setTimeout(function() {
+					if (document.activeElement.tagName == 'INPUT' || document.activeElement.tagName == 'TEXTAREA') {
+						return
+					}
+					var result = 'pc';
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						result = 'ios'
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						result = 'android'
+					}
+
+					if (result = 'ios') {
+						document.activeElement.scrollIntoViewIfNeeded(true);
+					}
+				}, 100)
+			}
+		</script>
+	</body>
+
+</html>

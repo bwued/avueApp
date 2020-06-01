@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"z_sf wx-image { width: 100%; height: ",[0,4000],"; }\n",],undefined,{path:"./pages/sf/index.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/sf/index.wxml') } }));

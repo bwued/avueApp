@@ -1,0 +1,116 @@
+.box {
+  width: 86%;
+  margin-left: 7%;
+  height: 31rem;
+  position: relative;
+  top: 60rpx;
+  border-radius: 20rpx;
+  background: white;
+}
+.box .top {
+  height: 340rpx;
+}
+.box .top .z_left {
+  width: 40%;
+  float: left;
+}
+.box .top .z_left image {
+  width: 88rpx;
+  height: 88rpx;
+  margin: 50rpx 0 0 90rpx;
+}
+.box .top .z_left .z_pp {
+  font-size: 35rpx;
+  color: #bf9761;
+  margin: 30rpx 0 0 50rpx;
+}
+.box .top .z_right {
+  float: left;
+  width: 55%;
+  margin-left: 5%;
+}
+.box .top .z_right image {
+  width: 280rpx;
+  height: 330rpx;
+  position: relative;
+  top: -58rpx;
+  left: 65rpx;
+}
+.box .z_from {
+  margin-top: 60rpx;
+  /* 注册 */
+}
+.box .z_from .z_flex {
+  width: 80%;
+  margin-left: 8%;
+}
+.box .z_from .z_flex input {
+  font-size: 28rpx;
+  padding-left: 30rpx;
+  width: 100%;
+  height: 80rpx;
+  margin-bottom: 40rpx;
+  background: #f3f8fe;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+}
+.box .z_from .z_flex .zbh_input {
+  width: 45%;
+  float: left;
+}
+.box .z_from .z_flex .z_btn {
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  width: 30%;
+  margin-left: 5%;
+  color: white;
+  float: left;
+  background: #d3af7e;
+  font-size: 28rpx;
+  border-radius: 10rpx;
+}
+.box .z_from .zz {
+  width: 100%;
+}
+.box .z_from .tip_text {
+  display: block;
+  color: #ee3121;
+  text-align: left;
+  font-size: 26rpx;
+  max-height: 50rpx;
+  margin-left: 90rpx;
+  margin-top: -18rpx;
+  overflow: hidden;
+  height: 50rpx;
+}
+.box .z_from .z_zc {
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 1%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background: #d3af7e;
+  color: white;
+  font-size: 38rpx;
+  letter-spacing: 10rpx;
+  border-radius: 50rpx;
+}
+.z_xiazai {
+  color: #d3af7e;
+  text-align: center;
+  font-size: 30rpx;
+  margin-top: 14%;
+  margin-bottom: 20rpx;
+  letter-spacing: 10rpx;
+  margin-left: 10rpx;
+}
+.z_xiazai navigator {
+  display: inline-block;
+  color: #dd524d;
+  text-decoration: none;
+  letter-spacing: 1rpx;
+}
+
