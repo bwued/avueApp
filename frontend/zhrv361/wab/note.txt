@@ -1,0 +1,3 @@
+## /Users/hongwenli/Desktop/zhryun-v3-61/mygit-v3/frontend/zhrv361
+## git clone https://github.com/bwued/avueApp.git
+## todo v3懒人开发 20200601 By wdli lhwsoft@126.com
