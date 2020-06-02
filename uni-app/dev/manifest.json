@@ -75,7 +75,7 @@
         "title" : "智慧人注册下载",
         "domain" : "",
         "router" : {
-            "base" : "",
+            "base" : "/zhr/uniApp/",
             "mode" : "hash"
         },
         "devServer" : {

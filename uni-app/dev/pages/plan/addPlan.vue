@@ -8,7 +8,7 @@
 			</view>
 		</view>
 		<view class="select_card">
-			<text class="xz_text">选择还款银行</text>
+			<text class="xz_text" v-if="cardList.length">选择还款银行</text>
 			<view class="item-list">
 				
 				<view class="list-item" v-for="(item,index) in cardList" :key="index">
