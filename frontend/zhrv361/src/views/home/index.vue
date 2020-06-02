@@ -34,7 +34,7 @@
       </marquee>
     </div> -->
     <!-- 公告滚动 end -->
-    <div class="rec-box">
+    <div class="rec-box disnone">
       <recommend />
     </div>
 
@@ -50,7 +50,7 @@
     <!-- <roll /> -->
     <!-- todo 喜报左右滚 end -->
 
-    <service-recommend />
+    <service-recommend class="disnone"/>
     <tabbar :home-page="true" />
 	<!-- 弹窗广告 -->
 	<notice />

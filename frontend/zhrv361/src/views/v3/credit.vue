@@ -17,9 +17,9 @@
       <!--  -->
       <div class="add_card">
         <!-- 添加银行卡 -->
-        <div class="z_img">
+        <div class="z_img" @click="gotoAddCard()">
           <img src="../../../static/img/addcard.png">
-          <span class="size28" @click="gotoAddCard()">添加信用卡</span>
+          <span class="size28">添加信用卡</span>
         </div>
       </div>
 
