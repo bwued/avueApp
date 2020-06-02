@@ -16,12 +16,12 @@
 
       <!--  -->
       <div class="add_card">
-			<!-- 添加银行卡 -->
-			<div class="z_img">
-				<img src="../../../static/img/addcard.png">
-				<span @click="gotoAddCard()" class="size28">添加信用卡</span>
-			</div>
-		</div>
+        <!-- 添加银行卡 -->
+        <div class="z_img">
+          <img src="../../../static/img/addcard.png">
+          <span class="size28" @click="gotoAddCard()">添加信用卡</span>
+        </div>
+      </div>
 
       <div class="cards_list">
         <div class="cards_head">
@@ -29,7 +29,8 @@
           <span v-if="currentNav === 1" class="size28 color999">共 {{ cardMsg.length }} 张信用卡</span>
         </div>
         <div class="list_items">
-          <div v-for="(item) in cardMsg" :key="item.id" :class="currentNav === 1 ? 'list_item flex flex_alCen' : 'list_item2 flex flex_alCen'" @click="gotoEditCard(item.id,item.card_info.auth)">
+          <!-- <div v-for="(item) in cardMsg" :key="item.id" :class="currentNav === 1 ? 'list_item flex flex_alCen' : 'list_item2 flex flex_alCen'" @click="gotoEditCard(item.id,item.card_info.auth)"> -->
+            <div v-for="(item) in cardMsg" :key="item.id" :class="currentNav === 1 ? 'list_item flex flex_alCen' : 'list_item2 flex flex_alCen'">
             <div class="card_logo">
               <img :src="item.bank_info && item.bank_info.bank_logo_image.url">
             </div>
@@ -45,7 +46,9 @@
               </div>
             </div>
             <div v-if="currentNav === 1" class="z_check">
-              <button class="btn btn_add" @click="gotoAddCard">立即还款</button>
+              <button class="btn btn_add" @click="gotoChanel">
+                立即还款
+              </button>
             </div>
           </div>
         </div>
@@ -123,6 +126,12 @@ export default {
         console.log(that.cardMsg)
       }).catch(error => {
         console.log(error)
+      })
+    },
+    gotoChanel() {
+      this.$toast({
+        message: '开发中...',
+        position: 'middle'
       })
     },
     /* 点击解绑银行卡 currentNav 1信用卡 0储蓄卡*/
