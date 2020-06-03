@@ -24,6 +24,33 @@
       自选通道
     </div>
 
+    <van-popup v-model="showSelectChannel" position="bottom" class="select-channel">
+      <!-- 自选通道 -->
+      <div class="select-channel-page">
+        <div class="title-text">
+          请选择通道
+        </div>
+        <ul class="list">
+          <li v-for="(item,index) in channelList" :key="index" :class="{'item':true,'on':activeId===index}" @click="selectedChannel(item,index)">
+            <img :src="item.logo_image&&item.logo_image.url">
+            <div class="text">
+              <div class="name">
+                {{ item.name }}
+              </div>
+              <div class="clear">
+                <span class="lt dec-text">费率：{{ (item.rate * 100).toFixed(2) }}% , {{ (item.big_money_user_rate * 100).toFixed(2) }}% </span>
+              </div>
+               <div class="clear">
+                <span class="lt dec-text">交易时间：{{ item.start_time }}-{{ item.end_time }}</span>
+              </div>
+              <span class="signTest">{{ item.is_sign == true ? '已签约' : '未签约' }}</span>
+            </div>
+          </li>
+          <div class="add-btn" @click="selectChannel()">确定</div>
+        </ul>
+      </div>
+    </van-popup>
+
     <div class="plan">
       <div type="message" class="item intelligence" @click="Intell">
         <img src="../../../static/img/addcard.png">
@@ -47,14 +74,20 @@ export default {
     return {
       cardId: this.$util.getQueryVariable('cardId'), // 当前信用卡id
       isbindCard: false,
+      showSelectChannel: false,
       isbindCardhk: false,
       item_code: {}, // 默认通道
-      activeId: 0,
       creditCardId: '', // 信用卡ID
       channel_code: '', // 渠道代码
       tj_logo: require('../../../static/img/tuijian.png'),
       list_item: {}, // 推荐通道
-      list: [] // 自选通道列表
+      todo_item: {}, // 选择
+      list: [],
+      channelList: [], // 自选通道列表
+      showDetail: false,
+      selectedChannelItem: {},
+      showDetailItem: {},
+      activeId: 0
     }
   }, watch: {
     cardMsg: {
@@ -85,11 +118,35 @@ export default {
         console.log(error)
       })
     },
-    getCode() {
-      this.$toast({
-        message: '开发中...',
-        position: 'middle'
+    getZxChannel(cardId) {
+      const that = this
+      that.channelList = []
+      this.$api.card.getZxChannel(cardId).then(res => {
+        that.channelList = res.data.data
+        console.log('获取推荐通道...')
+        console.log(that.channelList)
       })
+    },
+    selectedChannel(item, index) {
+      // console.log(item)
+      this.selectedChannelItem = item
+      this.activeId = index
+      this.list_item = item
+      this.channel_code = item.code
+	    // this.showDetailFun(item)
+	    // this.selectChannel(item)
+    },
+    showDetailFun(item) {
+      // event.preventDefault() || event.stopPropagation()
+      this.showDetailItem = item
+      this.showDetail = true
+    },
+    getCode() {
+      this.showSelectChannel = true
+      this.getZxChannel(this.$util.getQueryVariable('cardId'))
+    },
+    selectChannel(item) {
+      this.showSelectChannel = false
     },
     Intell() {
       this.$router.push({ path: '/zxChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 自选通道
@@ -346,7 +403,161 @@ export default {
 		line-height: 100px;
 		text-align: center;
 		color: white;
-	}
+  }
+  .select-channel{
+    height: 85%;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.select-channel-page{
+  height: 100%;
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+  .title-text{
+    font-size: 28px;
+    color: @lightGrey;
+    margin: 24px 0;
+  }
+  .list{
+    height: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 180px;
+    box-sizing: border-box;
+    .item{
+      width:100%;
+      height:250px;
+      background:#fff;
+      border:2px solid #bf9761;
+      border-radius:10px;
+      padding: 24px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-bottom: 24px;
+      &.on{
+        background: #D2AB76;
+        .text{
+          .name,.dec-text,.tip{
+            color: #fff;
+          }
+        }
+        .detail-btn,.iconfont{
+          color: #fff !important;
+        }
+        .signTest{ position: absolute; top: 80px; right: 20px;
+          width: 90px;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          border: 1px solid #fff;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+      }
+      }
+      img{
+        width: 66px;
+        height: 66px;
+        margin-right: 24px;
+        flex-shrink: 0;
+        border-radius: 50%;
+      }
+      .text{
+        width: 565px;
+        .name{
+          font-size: 34px;
+          font-weight: bold;
+        }
+        .tip{
+          font-size: 20px;
+          color: @lightGrey;
+          width: 100%;
+        }
+        .dec-text{
+          font-size: 20px;
+          color: @lightGrey;
+          margin: 24px 0;
+        }
+      }
+      .signTest{ position: absolute; top: 80px; right: 20px;
+          width: 90px;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          border: 1px solid #bf9761;
+          border-radius: 10px;
+          color: #bf9761;
+          font-size: 12px;
+      }
+      .detail-btn{
+        font-size: 24px;
+        color: @lightGrey;
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        .iconfont{
+          font-size: 10px;
+          color: @lightGrey;
+        }
+      }
+    }
+  }
+  .add-btn{
+    width:100%;
+    height:100px;
+    background:#BF9761;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    line-height: 100px;
+    color: #FFFFFF;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:active {
+      opacity: .6;
+    }
+  }
+  .detail{
+    border-radius: 20px;
+    padding: 36px 54px;
+    box-sizing: border-box;
+    text-align: center;
+    width: 90%;
+    max-height: 90%;
+    height: auto;
+    .img{
+      width: 100px;
+      height: 100px;
+    }
+    .name{
+      font-size: 36px;
+      margin: 6px 0 40px;
+    }
+    .dec-text{
+      margin-bottom: 24px;
+      font-size: 24px;
+      text-align: left;
+    }
+    .tip{
+      color: @lightGrey;
+      font-size: 24px;
+      margin-bottom: 130px;
+      text-align: left;
+      /deep/ p{
+        display: inline-block;
+        font-size: 20px;
+        color: @lightGrey;
+      }
+    }
+  }
 }
 
 </style>

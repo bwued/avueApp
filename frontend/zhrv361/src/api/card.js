@@ -66,6 +66,13 @@ const card = {
       url: '/repayment/recommend/channelList/' + creditCardId
     })
   },
+  /* 获取推荐自选通道 20200603*/
+  getZxChannel(creditCardId) {
+    return request({
+      method: 'get',
+      url: '/repayment/recommend/channelList/' + creditCardId
+    })
+  },
   /* 绑定银行卡*/
   bindCard(cardType, data) {
     return request({
