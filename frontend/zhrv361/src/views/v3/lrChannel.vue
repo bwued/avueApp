@@ -1,16 +1,14 @@
 
-<!-- todo 自选通道  测试环境 20200603-->
+<!-- todo 懒人计划 --智慧金 hgwn 2020.1.7 测试环境-->
 <template>
   <div class="intelligence-page">
-    <top-msg header-name="添加自选通道" />
-
+    <top-msg header-name="添加懒人计划" />
     <div class="page-top">
       <img :src="cardList.bank_logo_image">
       <span class="name lt">{{ cardList.name }}</span>
       <span class="text lt">{{ cardList.card_no }}</span>
       <span class="type">信用卡</span>
     </div>
-
     <ul class="top-list">
       <!-- <li class="clear item" @click="showSelectCard=true">
         <span class="lt text">选择信用卡</span>
@@ -20,13 +18,13 @@
         </span>
       </li> -->
       <li class="clear item">
-        <span class="lt text">账单总金额</span>
+        <span class="lt text">还款总金额</span>
         <span class="rt">
           <input v-model.number="repay_sum_amount" type="number" class="input-box" @change="changeNum">
         </span>
       </li>
 
-      <li v-if="false" class="clear item">
+      <li class="clear item">
         <span class="lt text">信用卡预留金额</span>
         <span class="rt">
           <input v-model.number="principal_amount" type="number" class="input-box">
@@ -36,7 +34,7 @@
       <li class="clear item">
         <span class="lt text">消费类型</span>
         <span class="rt">
-          <span class="input-box" type="text" @click="showPicker = true">{{ repay_type }}</span>
+          <span type="text" class="input-box" @click="showPicker= true">{{ repay_type }}</span>
           <!-- <input v-model="repay_type" type="text" @click="showPicker = true" class="input-box"> -->
           <van-icon name="arrow" />
         </span>
@@ -51,7 +49,7 @@
         />
       </van-popup>
 
-      <li class="clear item" @click="showDateSelectFun">
+      <li v-if="false" class="clear item" @click="showDateSelectFun">
         <span class="lt text">选择账单日期</span>
         <van-icon name="arrow" class="rt" />
         <span v-if="dates.length>0" class="rt repay-dates textEllipsis">
@@ -59,11 +57,12 @@
         </span>
       </li>
 
-      <li class="clear item">
+      <li class="clear item" style="display: none;">
         <span class="lt text">每天还款笔数</span>
         <span class="calc-box rt">
           <img src="../../../static/img/calc-plus.png" class="img-btn" @click="value>1?value--:value=1">
           <input v-model="value" type="text" class="input" readonly="readonly">
+          <!--<img src="../../../static/img/calc-add.png" class="img-btn" @click="value<3?value++:value=3">-->
           <img src="../../../static/img/calc-add.png" class="img-btn" @click="value<repay_type_list.length?value++:value=repay_type_list.length">
         </span>
       </li>
@@ -113,6 +112,7 @@
             <!--todo 添加智慧金-->
             <span class="rt text">{{ refundName }}：
               <span class="price">{{ (billMsg.fee_refund_money) }}元</span>
+              <!--<span class="price">{{ (billMsg.plan_info.repay_plan_info.fee_refund_money) }}</span>-->
             </span>
           </div>
 
@@ -153,6 +153,11 @@
       <div class="title">
         请自定义消费时间
       </div>
+      <!--
+      <van-datetime-picker
+              v-model="Times"
+              type="time"
+      />-->
 
       <ul class="top-list">
         <li class="clear item">
@@ -298,11 +303,11 @@ export default {
       currentDate: new Date(),
       currentValue: new Date(),
       // end
-      value: 1,
-      reapyType: 1,
+      value: 2,
+      reapyType: 2,
       principal_amount: '',
       repayCountPerDay: 1, // todo 每天还款笔数
-      repay_type: '1消1还', // todo 代还类型
+      repay_type: '2消1还', // todo 代还类型
       columns: ['1消1还', '2消1还', '3消1还'],
       repay_type_list: [1, 2, 3], // 还款笔数数据
       showPicker: false,
@@ -332,7 +337,7 @@ export default {
       },
       channel_code: this.$route.query.code, // 渠道代码
       z_user_rate: this.$route.query.z_user_rate || '', // 大额费率
-      cardId: this.$util.getQueryVariable('cardId'), // 当前信用卡id, // 卡id
+      cardId: '', // 卡id
       cardType: 'CREDIT', // cardType 银行卡类型  ：CREDIT 信用卡  DEBIT 储蓄卡
       cardId1: '', // 卡id
       cardType1: 'DEBIT',
@@ -395,7 +400,7 @@ export default {
     }
   },
   created() {
-    document.title = '添加自选通道'
+    document.title = '懒人计划'
     this.areaList = list
     this.getRepayConstraint()
     //    this.getRefundName() // 获取智慧金 todo
@@ -407,7 +412,6 @@ export default {
     this.getCredItInfo(this.$util.getQueryVariable('cardId'))
   },
   methods: {
-
     // 新的接口
     getCredItInfo(cardId) {
       const that = this
@@ -451,7 +455,7 @@ export default {
         //            }
 
         //            this.repay_sum_amount = Math.floor(this.repay_sum_amount)
-        this.principal_amount = parseInt(this.repay_sum_amount) * 0.1
+        this.principal_amount = Math.floor(parseInt(this.repay_sum_amount) * 100 / 1000)
         console.log(this.repay_sum_amount)
       }
     },
@@ -641,7 +645,7 @@ export default {
         console.warn('每天还款笔数获取..')
         console.warn(res)
         this.repay_type_list = res.data.data.repay_type_list
-        this.value = 1
+        this.value = 2
         console.warn(this.repay_type_list)
       }).catch(err => {
         console.warn(err)
@@ -704,32 +708,26 @@ export default {
     },
     async toAddBill() {
       var data = {
-        bank_card_id: this.$util.getQueryVariable('cardId'), // 当前信用卡id,
+        bank_card_id: this.$util.getQueryVariable('cardId'), // 当前信用卡id
         channel_code: this.channel_code,
         city_code: this.selectedAreaList.region,
-        repay_days: this.repay_days,
         repay_sum_amount: this.repay_sum_amount * 100,
-        //        repay_sum_count: this.value
         repay_count_per_day: this.value, // 每天还款笔数
-        repay_type: this.reapyType
-        //        principal_amount: this.principal_amount
+        repay_type: this.reapyType,
+        principal_amount: this.principal_amount * 100
       }
       if (!data.city_code) {
         this.$toast.fail('请选择城市')
         return false
-      } else if (data.repay_days.length === 0) {
-        this.$toast.fail('请选择到期日')
-        return false
       } else if (!data.repay_sum_amount) {
         this.$toast.fail('请输入账单金额')
         return false
+      } else if (!data.principal_amount) {
+        this.$toast.fail('请输入信用卡预留金额')
+        return false
       }
-      /* else if (!data.principal_amount) {
-          this.$toast.fail('请输入信用卡预留金额')
-          return false
-      }*/
       /* 渠道代还限制*/
-      await this.$api.plan.repayChannelConstraint(this.repay_sum_amount * 100, this.channel_code).then(res => {
+      await this.$api.plan.repayChannelConstraintV2(this.repay_sum_amount * 100, this.channel_code, { repay_type: this.reapyType }).then(res => {
         console.log(res)
         this.min_count = res.data.data.min_count
         this.max_count = res.data.data.max_count
@@ -744,7 +742,7 @@ export default {
         this.$toast('最小账单笔数不小于' + this.min_count + '笔')
         return false
       }
-      this.$api.plan.genIntelligent(data).then(res => {
+      this.$api.plan.genIntelligentV2(data).then(res => {
         const billList = []
         if (res.data.code === '200000') {
           console.log('智能生成代还计划')
@@ -787,10 +785,10 @@ export default {
     },
     // 显示到期日期页面
     showDateSelectFun() {
-      // if (Object.keys(this.bankMsg).length === 0 && this.bankMsg.constructor === Object) {
-      //   this.$toast('请先选择银行卡')
-      //   return false
-      // }
+      if (Object.keys(this.bankMsg).length === 0 && this.bankMsg.constructor === Object) {
+        this.$toast('请先选择银行卡')
+        return false
+      }
       this.showDateSelect = true
     },
     // 城市联动框
@@ -819,6 +817,11 @@ export default {
       this.showDateSelect = false
     },
     submit() {
+      //  content.methods.demandChannelCardFun()
+      // this.getCardListFun() // TODO  2019/10/11
+      // this.showConfirmBill = true
+      // this.isbindCard=true
+
       var arr = []
       for (var i = 0; i < this.billList.length; i++) {
         for (var j = 0; j < this.billList[i].consume_bills.length; j++) {
@@ -983,7 +986,7 @@ export default {
       overflow: unset;
       .repay-dates{
         display: inline-block;
-        width: 400px;
+        width: 440px;
         text-align: right;
       }
       .input-box{

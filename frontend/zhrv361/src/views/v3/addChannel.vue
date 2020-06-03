@@ -58,7 +58,7 @@
       </div>
       <div class="item custom" @click="Intell_Lazy">
         <img src="../../../static/img/addlangui.png">
-        <span style="color:#fff;">添加懒鬼计划</span>
+        <span style="color:#fff;">添加懒人计划</span>
       </div>
     </div>
   </div>
@@ -152,10 +152,7 @@ export default {
       this.$router.push({ path: '/zxChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 自选通道
     },
     Intell_Lazy() {
-      this.$toast({
-        message: '开发中...',
-        position: 'middle'
-      })
+      this.$router.push({ path: '/lrChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 懒人计划
     }
   }
 }
