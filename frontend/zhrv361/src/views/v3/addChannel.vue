@@ -92,7 +92,7 @@ export default {
       })
     },
     Intell() {
-      this.$router.push({ path: '/zxChannel', query: { cardId: this.cardId }}) // 自选通道
+      this.$router.push({ path: '/zxChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 自选通道
     },
     Intell_Lazy() {
       this.$toast({

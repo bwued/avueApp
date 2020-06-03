@@ -3,14 +3,22 @@
 <template>
   <div class="intelligence-page">
     <top-msg header-name="添加自选通道" />
+
+    <div class="page-top">
+      <img :src="cardList.bank_logo_image">
+      <span class="name lt">{{ cardList.name }}</span>
+      <span class="text lt">{{ cardList.card_no }}</span>
+      <span class="type">信用卡</span>
+    </div>
+
     <ul class="top-list">
-      <li class="clear item" @click="showSelectCard=true">
+      <!-- <li class="clear item" @click="showSelectCard=true">
         <span class="lt text">选择信用卡</span>
         <span class="rt intro">
           {{ bankMsg.bank_info&&bankMsg.bank_info.name }}{{ Object.keys(bankMsg).length === 0 && bankMsg.constructor === Object?'':'（尾号' }}{{ bankMsg && bankMsg.card_no }}{{ Object.keys(bankMsg).length === 0 && bankMsg.constructor === Object?'':'）' }}
           <van-icon name="arrow" />
         </span>
-      </li>
+      </li> -->
       <li class="clear item">
         <span class="lt text">账单总金额</span>
         <span class="rt">
@@ -50,7 +58,6 @@
           <span v-for="(item,index) in dates" :key="index" class="text">{{ item.getDate() }}, </span>
         </span>
       </li>
-    
 
       <li class="clear item">
         <span class="lt text">每天还款笔数</span>
@@ -260,6 +267,12 @@ export default {
   },
   data() {
     return {
+      cardId: this.$util.getQueryVariable('cardId'), // 当前信用卡id
+      cardList: { // 信用卡信息
+			  bank_logo_image: '',
+        name: '',
+        card_no: ''
+      },
       showTimeSelect: false, // 选择时间
       Times: '', // 时间 时分秒
       date: '',
@@ -319,7 +332,7 @@ export default {
       },
       channel_code: this.$route.query.code, // 渠道代码
       z_user_rate: this.$route.query.z_user_rate || '', // 大额费率
-      cardId: '', // 卡id
+      cardId: this.$util.getQueryVariable('cardId'), // 当前信用卡id, // 卡id
       cardType: 'CREDIT', // cardType 银行卡类型  ：CREDIT 信用卡  DEBIT 储蓄卡
       cardId1: '', // 卡id
       cardType1: 'DEBIT',
@@ -391,8 +404,23 @@ export default {
       this.selectedAreaList = this.cityRecord
     }
     this.getRepayCount()
+    this.getCredItInfo(this.$util.getQueryVariable('cardId'))
   },
   methods: {
+
+    // 新的接口
+    getCredItInfo(cardId) {
+      const that = this
+      that.$api.card
+        .getCredItInfo(cardId).then(res => {
+          that.cardList.bank_logo_image = res.data.data.bank_info.bank_logo_image.url
+				  that.cardList.name = res.data.data.bank_info.name
+				  that.cardList.card_no = res.data.data.card_no
+        }).catch(err => {
+          console.log(err)
+          Toast('获取信用卡信息失败')
+        })
+    },
 
     onConfirm(value) {
       this.repay_type = value
@@ -676,7 +704,7 @@ export default {
     },
     async toAddBill() {
       var data = {
-        bank_card_id: this.bankMsg.id,
+        bank_card_id: this.$util.getQueryVariable('cardId'), // 当前信用卡id,
         channel_code: this.channel_code,
         city_code: this.selectedAreaList.region,
         repay_days: this.repay_days,
@@ -686,10 +714,7 @@ export default {
         repay_type: this.reapyType
         //        principal_amount: this.principal_amount
       }
-      if (!data.bank_card_id) {
-        this.$toast.fail('请选择银行卡')
-        return false
-      } else if (!data.city_code) {
+      if (!data.city_code) {
         this.$toast.fail('请选择城市')
         return false
       } else if (data.repay_days.length === 0) {
@@ -724,7 +749,7 @@ export default {
         if (res.data.code === '200000') {
           console.log('智能生成代还计划')
           console.log(res.data.data)
-		  this.z_user_rate = res.data.data.plan_info.repay_plan_info.big_money_user_rate
+		      this.z_user_rate = res.data.data.plan_info.repay_plan_info.big_money_user_rate
           this.billMsg.time = res.data.data.plan_info.create_time
           this.billMsg.useNum = parseInt(res.data.data.consume_count)
           this.billMsg.repayNum = parseInt(res.data.data.repay_count)
@@ -762,10 +787,10 @@ export default {
     },
     // 显示到期日期页面
     showDateSelectFun() {
-      if (Object.keys(this.bankMsg).length === 0 && this.bankMsg.constructor === Object) {
-        this.$toast('请先选择银行卡')
-        return false
-      }
+      // if (Object.keys(this.bankMsg).length === 0 && this.bankMsg.constructor === Object) {
+      //   this.$toast('请先选择银行卡')
+      //   return false
+      // }
       this.showDateSelect = true
     },
     // 城市联动框
@@ -794,7 +819,6 @@ export default {
       this.showDateSelect = false
     },
     submit() {
-    
       var arr = []
       for (var i = 0; i < this.billList.length; i++) {
         for (var j = 0; j < this.billList[i].consume_bills.length; j++) {
@@ -918,10 +942,40 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@col3: #333;
+@col6: #666;
+@col9: #999;
+@white: white;
+@bg: #bf9761;
 @import '../../assets/less/common.less';
+.page-top {
+		border-top: 1px solid #f5f5f5;
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: 110px;
+		line-height: 110px;
+		background: white;
+		img {
+			width: 60px;
+			height: 60px;
+			margin: 25px 0 0 35px;
+		}
+		.lt {
+			color: @col3;
+			font-size: 28px;
+			margin-left: 25px;
+		}
+		.type {
+			color: @col9;
+			font-size: 28px;
+			margin-left: 25px;
+		}
+	}
 .intelligence-page{
   .top-list{
     background: #fff;
+    margin: 35px;
     .item{
       padding: 24px;
       box-sizing: border-box;
@@ -929,7 +983,7 @@ export default {
       overflow: unset;
       .repay-dates{
         display: inline-block;
-        width: 440px;
+        width: 400px;
         text-align: right;
       }
       .input-box{

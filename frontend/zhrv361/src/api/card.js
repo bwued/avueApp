@@ -51,6 +51,14 @@ const card = {
       url: '/repayment/recommend/channel/' + cardId
     })
   },
+
+  /* 根据银行卡id 获取银行卡信息 20200603*/
+  getCredItInfo(cardId) {
+    return request({
+      method: 'get',
+      url: '/trade/cards/CREDIT/' + cardId
+    })
+  },
   /* 获取自选通道列表 20200603*/
   getListCode(creditCardId) {
     return request({
