@@ -30,7 +30,7 @@
         </div>
         <div class="list_items">
           <!-- <div v-for="(item) in cardMsg" :key="item.id" :class="currentNav === 1 ? 'list_item flex flex_alCen' : 'list_item2 flex flex_alCen'" @click="gotoEditCard(item.id,item.card_info.auth)"> -->
-            <div v-for="(item) in cardMsg" :key="item.id" :class="currentNav === 1 ? 'list_item flex flex_alCen' : 'list_item2 flex flex_alCen'">
+          <div v-for="(item) in cardMsg" :key="item.id" :class="currentNav === 1 ? 'list_item flex flex_alCen' : 'list_item2 flex flex_alCen'">
             <div class="card_logo">
               <img :src="item.bank_info && item.bank_info.bank_logo_image.url">
             </div>
@@ -46,7 +46,7 @@
               </div>
             </div>
             <div v-if="currentNav === 1" class="z_check">
-              <button class="btn btn_add" @click="gotoChanel">
+              <button class="btn btn_add" @click="gotoChanel(item.id)">
                 立即还款
               </button>
             </div>
@@ -128,11 +128,8 @@ export default {
         console.log(error)
       })
     },
-    gotoChanel() {
-      this.$toast({
-        message: '开发中...',
-        position: 'middle'
-      })
+    gotoChanel(id) {
+      this.$router.push({ path: '/addChannel', query: { cardId: id }})
     },
     /* 点击解绑银行卡 currentNav 1信用卡 0储蓄卡*/
     deleteCardFun(id) {

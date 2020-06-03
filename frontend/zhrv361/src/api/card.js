@@ -44,6 +44,20 @@ const card = {
       url: '/trade/cards/' + cardType
     })
   },
+  /* 获取推荐通道列表 20200603*/
+  getChannel(cardId) {
+    return request({
+      method: 'get',
+      url: '/repayment/recommend/channel/' + cardId
+    })
+  },
+  /* 获取自选通道列表 20200603*/
+  getListCode(creditCardId) {
+    return request({
+      method: 'get',
+      url: '/repayment/recommend/channelList/' + creditCardId
+    })
+  },
   /* 绑定银行卡*/
   bindCard(cardType, data) {
     return request({

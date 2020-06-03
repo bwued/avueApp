@@ -149,6 +149,18 @@ const routes = [
     component: () => import(/* webpackChunkName: "credit" */ '@/views/v3/credit')
   },
   {
+    path: '/addChannel',
+    name: 'addChannel',
+    meta: { index: 3.1 },
+    component: () => import(/* webpackChunkName: "addChannel" */ '@/views/v3/addChannel')
+  },
+  {
+    path: '/zxChannel',
+    name: 'zxChannel',
+    meta: { index: 3.1 },
+    component: () => import(/* webpackChunkName: "zxChannel" */ '@/views/v3/zxChannel')
+  },
+  {
     path: '/faq',
     name: 'faq',
     meta: { index: 3.1 },
