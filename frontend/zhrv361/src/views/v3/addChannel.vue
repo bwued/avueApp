@@ -40,13 +40,15 @@
               <div class="clear">
                 <span class="lt dec-text">费率：{{ (item.rate * 100).toFixed(2) }}% , {{ (item.big_money_user_rate * 100).toFixed(2) }}% </span>
               </div>
-               <div class="clear">
+              <div class="clear">
                 <span class="lt dec-text">交易时间：{{ item.start_time }}-{{ item.end_time }}</span>
               </div>
               <span class="signTest">{{ item.is_sign == true ? '已签约' : '未签约' }}</span>
             </div>
           </li>
-          <div class="add-btn" @click="selectChannel()">确定</div>
+          <div class="add-btn" @click="selectChannel()">
+            确定
+          </div>
         </ul>
       </div>
     </van-popup>
@@ -66,9 +68,11 @@
 
 <script>
 import topMsg from '@/components/topMsg'
+import bindCard from '@/views/proceeds/bindCard'
+import bindCardh from '@/views/proceeds/bindCardHT' // 汇卡通道 12月 lhwsoft
 export default {
   name: 'MyCard',
-  components: { topMsg },
+  components: { topMsg, bindCard, bindCardh },
   /* data必须是函数*/
   data: function() {
     return {
@@ -149,7 +153,26 @@ export default {
       this.showSelectChannel = false
     },
     Intell() {
-      this.$router.push({ path: '/zxChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 自选通道
+      const that = this
+      if (that.list_item.is_sign != true) {
+        that.$dialog({
+          title: '提示',
+          message: '该通道还没签约，确定进行签约?',
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          className: 'dialog',
+          closeOnClickOverlay: true
+        }).then(res => {
+          if (res === 'confirm') {
+            // that.$router.replace('/login')
+            // this.$router.push({ path: '/v3bindCard', query: { cardId: this.cardId, code: this.channel_code }})
+            this.$router.push({ path: '/v3bindCardHT', query: { cardId: this.cardId, code: this.channel_code }})
+          }
+        })
+      } else {
+        this.$router.push({ path: '/zxChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 自选通道
+      }
     },
     Intell_Lazy() {
       this.$router.push({ path: '/lrChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 懒人计划
