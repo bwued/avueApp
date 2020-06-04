@@ -87,7 +87,7 @@
         </div>
       </div>
     </div>
-    <tabbar :home-page="msg" />
+    <!-- <tabbar :home-page="msg" /> -->
   </div>
 </template>
 <script>

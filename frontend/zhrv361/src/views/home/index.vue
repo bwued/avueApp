@@ -51,7 +51,7 @@
     <!-- todo 喜报左右滚 end -->
 
     <service-recommend class="disnone"/>
-    <tabbar :home-page="true" />
+    <!-- <tabbar :home-page="true" /> -->
 	<!-- 弹窗广告 -->
 	<notice />
   </div>
