@@ -179,6 +179,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "v3bindCardHT" */ '@/views/v3/v3bindCardHT')
   },
   {
+    path: '/v3bindCardTX',
+    name: 'v3bindCardTX',
+    meta: { index: 3.1 },
+    component: () => import(/* webpackChunkName: "v3bindCardHTX" */ '@/views/v3/v3bindCardTX')
+  },
+  {
     path: '/faq',
     name: 'faq',
     meta: { index: 3.1 },

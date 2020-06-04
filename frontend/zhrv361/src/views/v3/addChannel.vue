@@ -68,11 +68,11 @@
 
 <script>
 import topMsg from '@/components/topMsg'
-import bindCard from '@/views/proceeds/bindCard'
-import bindCardh from '@/views/proceeds/bindCardHT' // 汇卡通道 12月 lhwsoft
+// import bindCard from '@/views/proceeds/bindCard'
+// import bindCardh from '@/views/proceeds/bindCardHT' // 汇卡通道 12月 lhwsoft
 export default {
   name: 'MyCard',
-  components: { topMsg, bindCard, bindCardh },
+  components: { topMsg },
   /* data必须是函数*/
   data: function() {
     return {
@@ -167,7 +167,20 @@ export default {
           if (res === 'confirm') {
             // that.$router.replace('/login')
             // this.$router.push({ path: '/v3bindCard', query: { cardId: this.cardId, code: this.channel_code }})
-            this.$router.push({ path: '/v3bindCardHT', query: { cardId: this.cardId, code: this.channel_code }})
+            // sign_type：信用卡签约方式,绑卡类型: 0.无需绑卡 1.接口绑卡 2.H5绑卡 3.接口,HTML绑卡,4.接口绑卡、前端控制的套现发送验证码
+            // signature：2 信用卡已签约，1 信用卡未签约
+            // is_sign 字段说明：
+            // * 签约状态
+            // * true:已签约（储蓄卡已注册，信用卡已签约）
+            // * false:未签约（储蓄卡未注册，或者信用卡未签约）
+            // state：4 储蓄卡已注册，3 储蓄卡未注册
+            if (that.list_item.sign_type === 1 || that.list_item.sign_type === 4) {
+              that.$router.push({ path: '/v3bindCard', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
+            } else if (that.list_item.sign_type === 2) {
+              that.$router.push({ path: '/v3bindCardHT', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
+            } else {
+              that.$router.push({ path: '/v3bindCardTX', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
+            }
           }
         })
       } else {
