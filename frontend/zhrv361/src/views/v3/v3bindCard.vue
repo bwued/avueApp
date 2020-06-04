@@ -97,7 +97,7 @@ export default {
   data: function() {
     return {
       cardId: this.$util.getQueryVariable('cardId'), // 银行卡id
-      channelCode: this.$util.getQueryVariable('channelCode'), // 渠道代码
+      channelCode: this.$util.getQueryVariable('code'), // 渠道代码
       creditCardId: '', // 银行卡号
       cardName: '', // 所属银行
       CVN2: '', // CVN2
