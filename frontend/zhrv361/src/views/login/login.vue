@@ -233,7 +233,8 @@ export default {
                 const phone = that.tel
                 console.log('that.tel: ', that.tel)
                 STORE.set('phone', that.tel)
-                that.$router.push('/home')
+                // that.$router.push('/home')
+                that.$router.push('/credit')
               })
           })
           .catch(res => {

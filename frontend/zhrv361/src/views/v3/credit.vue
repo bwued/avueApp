@@ -1,6 +1,12 @@
 <template>
   <div class="">
-    <top-msg header-name="选择信用卡" />
+    <div class="top">
+      <!-- <img src="../../../static/img/xiangqing@2x.png" @click="$router.push('/planList')"> -->
+      <div class="text">
+        选择信用卡
+      </div>
+    </div> 
+    <!-- <top-msg header-name="选择信用卡" /> -->
     <div class="con_body">
       <!-- disnone css class类  = display::none -->
       <nav class="con_nav bgfff disnone">
@@ -170,6 +176,27 @@ export default {
 
 <style lang="less" scoped>
 @import '../../assets/less/common.less';
+  //头部返回
+  .top {
+    display: flex;
+    flex-flow: row;
+    background: white;
+    padding-bottom: 0.8rem;
+    // position: fixed;
+    width: 100%;
+    img {
+      width: 1rem;
+      height: 1.5rem;
+      margin-top: 0.8rem;
+      margin-left: 1rem;
+    }
+    .text {
+      color: #000000ff;
+      font-size: 1.3rem;
+      margin-top: 0.6rem;
+      margin-left: 8rem;
+    }
+  }
   .nav_item{
     position: relative;
     width: 50%;
