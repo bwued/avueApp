@@ -54,13 +54,17 @@
     </van-popup>
 
     <div class="plan">
-      <div type="message" class="item intelligence" @click="Intell">
+      <!-- <div type="message" class="item intelligence disnone" @click="Intell">
         <img src="../../../static/img/addcard.png">
         <span style="color:#bf9761;">添加自选计划</span>
-      </div>
-      <div class="item custom" @click="Intell_Lazy">
+      </div> -->
+      <!-- <div class="item custom" @click="Intell_Lazy" style="margin: 0 auto; text-align:center; width:60%;">
         <img src="../../../static/img/addlangui.png">
         <span style="color:#fff;">添加懒人计划</span>
+      </div> -->
+      <div type="message" class="item intelligence" @click="Intell_Lazy" style="margin: 0 auto; text-align:center; width:60%;">
+        <img src="../../../static/img/addcard.png">
+        <span style="color:#bf9761;">添加懒人计划</span>
       </div>
     </div>
   </div>
@@ -152,43 +156,51 @@ export default {
     selectChannel(item) {
       this.showSelectChannel = false
     },
-    Intell() {
+    // 信用卡绑卡签约函数 20200604
+    binkcard() {
       const that = this
-      if (that.list_item.is_sign != true) {
-        that.$dialog({
-          title: '提示',
-          message: '该通道还没签约，确定进行签约?',
-          showCancelButton: true,
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          className: 'dialog',
-          closeOnClickOverlay: true
-        }).then(res => {
-          if (res === 'confirm') {
-            // that.$router.replace('/login')
-            // this.$router.push({ path: '/v3bindCard', query: { cardId: this.cardId, code: this.channel_code }})
-            // sign_type：信用卡签约方式,绑卡类型: 0.无需绑卡 1.接口绑卡 2.H5绑卡 3.接口,HTML绑卡,4.接口绑卡、前端控制的套现发送验证码
-            // signature：2 信用卡已签约，1 信用卡未签约
-            // is_sign 字段说明：
-            // * 签约状态
-            // * true:已签约（储蓄卡已注册，信用卡已签约）
-            // * false:未签约（储蓄卡未注册，或者信用卡未签约）
-            // state：4 储蓄卡已注册，3 储蓄卡未注册
-            if (that.list_item.sign_type === 1 || that.list_item.sign_type === 4) {
-              that.$router.push({ path: '/v3bindCard', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
-            } else if (that.list_item.sign_type === 2) {
-              that.$router.push({ path: '/v3bindCardHT', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
-            } else {
-              that.$router.push({ path: '/v3bindCardTX', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
-            }
+      that.$dialog({
+        title: '提示',
+        message: '该通道还没签约，确定进行签约?',
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        className: 'dialog',
+        closeOnClickOverlay: true
+      }).then(res => {
+        if (res === 'confirm') {
+          // that.$router.replace('/login')
+          // this.$router.push({ path: '/v3bindCard', query: { cardId: this.cardId, code: this.channel_code }})
+          // sign_type：信用卡签约方式,绑卡类型: 0.无需绑卡 1.接口绑卡 2.H5绑卡 3.接口,HTML绑卡,4.接口绑卡、前端控制的套现发送验证码
+          // signature：2 信用卡已签约，1 信用卡未签约
+          // is_sign 字段说明：
+          // * 签约状态
+          // * true:已签约（储蓄卡已注册，信用卡已签约）
+          // * false:未签约（储蓄卡未注册，或者信用卡未签约）
+          // state：4 储蓄卡已注册，3 储蓄卡未注册
+          if (that.list_item.sign_type === 1 || that.list_item.sign_type === 4) {
+            that.$router.push({ path: '/v3bindCard', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
+          } else if (that.list_item.sign_type === 2) {
+            that.$router.push({ path: '/v3bindCardHT', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
+          } else {
+            that.$router.push({ path: '/v3bindCardTX', query: { cardId: this.cardId, code: this.channel_code, sign_type: that.list_item.sign_type }})
           }
-        })
+        }
+      })
+    },
+    Intell() {
+      if (this.list_item.is_sign != true) {
+        this.binkcard()
       } else {
         this.$router.push({ path: '/zxChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 自选通道
       }
     },
     Intell_Lazy() {
-      this.$router.push({ path: '/lrChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 懒人计划
+      if (this.list_item.is_sign != true) {
+        this.binkcard()
+      } else {
+        this.$router.push({ path: '/lrChannel', query: { cardId: this.cardId, code: this.channel_code }}) // 懒人计划
+      }
     }
   }
 }

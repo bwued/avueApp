@@ -48,7 +48,7 @@
                 {{ '**** **** *** ' + item.card_info.card_no.substr(item.card_info.card_no.length-4) }}
               </p>
               <div class="z_check wdfs">
-                <p>账单日：{{ item.card_info.bill_date }}号  到期日：{{ item.card_info.repayment_date }}号</p>
+                <p>账单日：{{ item.card_info.bill_date }}号  还款日：{{ item.card_info.repayment_date }}号</p>
               </div>
             </div>
             <div v-if="currentNav === 1" class="z_check">
