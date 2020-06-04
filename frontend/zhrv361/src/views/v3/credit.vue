@@ -5,7 +5,7 @@
       <div class="text">
         选择信用卡
       </div>
-    </div> 
+    </div>
     <!-- <top-msg header-name="选择信用卡" /> -->
     <div class="con_body">
       <!-- disnone css class类  = display::none -->
@@ -88,7 +88,16 @@ export default {
     }
   },
   created() {
-    this.thisTitle()
+    // this.thisTitle()
+    // this.getCardListFun()
+    const token = this.$util.getQueryVariable('token')
+    if (token) {
+      this.$store.dispatch('SetToken', token)
+    }
+    // alert(window.location.href.substr(window.location.href.indexOf('?') + 1))
+    // alert(token)
+  },
+  mounted() {
     this.getCardListFun()
   },
   methods: {

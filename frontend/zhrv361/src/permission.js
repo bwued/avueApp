@@ -2,7 +2,7 @@ import router from './router'
 import store from './store'
 import api from './api'
 
-const whiteList = ['/login', '/register', '/forgetPassword', '/agreement'] // no redirect whitelist
+const whiteList = ['/login', '/register', '/forgetPassword', '/agreement', '/home', '/credit'] // no redirect whitelist
 
 router.beforeEach((to, from, next) => {
   console.warn('.................... router.beforeEach ....................')

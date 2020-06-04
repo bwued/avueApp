@@ -5,8 +5,6 @@
       <!-- <img src="../../../static/img/login_bg_demo.jpg"> -->
       <img :src="login_bg">
 
-    
-
       <div v-if="true">
         <img class="z_logo2" src="../../../static/img/108.png">
         <!--<img class="z_logo2" id="logo"  src="http://forex.baiwang168.com.cn/img/zhr/img/108.png">-->
@@ -43,10 +41,10 @@
           <div v-if="type === 'text'" class="input-btn open-eyes" @click="changeType" />
           <div v-else class="input-btn close-eyes" @click="changeType" />
         </div>
-        <input v-model="checked" type="checkbox" class="B_zc">记住密码
+        <!-- <input v-model="checked" type="checkbox" class="B_zc">记住密码
         <router-link to="/forgetPassword" class="z_wj" tag="div">
           忘记密码 ?
-        </router-link>
+        </router-link> -->
         <button type="button" class="btn btn_submit" @click="submit">
           登录
         </button>
@@ -128,14 +126,14 @@ export default {
     // this.thisTitle()
     this.getCookie() // coolie保存数据方法
     this.$store.commit('CLEAR_KEEP_ALIVE_ARR')
-	this.$api.login.getclientTextShowConfig({name:'APP登录背景图'}).then(res=>{
-		// console.log(res.data.data['APP登录背景图'])
-		if(res.data.data && res.data.data['APP登录背景图']){
-			this.login_bg = res.data.data['APP登录背景图']
-		}
-	}).catch(err=>{
-		console.log(err)
-	})
+    this.$api.login.getclientTextShowConfig({ name: 'APP登录背景图' }).then(res => {
+      // console.log(res.data.data['APP登录背景图'])
+      if (res.data.data && res.data.data['APP登录背景图']) {
+        this.login_bg = res.data.data['APP登录背景图']
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   },
   mounted() {
     const tip = msg => {
