@@ -419,7 +419,9 @@ export default {
         .getCredItInfo(cardId).then(res => {
           that.cardList.bank_logo_image = res.data.data.bank_info.bank_logo_image.url
 				  that.cardList.name = res.data.data.bank_info.name
-				  that.cardList.card_no = res.data.data.card_no
+          that.cardList.card_no = res.data.data.card_no
+          // alert(res.data.data.bill_date, res.data.data.repayment_date)
+          that.judeRange(res.data.data.bill_date, res.data.data.repayment_date) // 根据信用卡 bill_date repayment_date 计算选取日期
         }).catch(err => {
           console.log(err)
           Toast('获取信用卡信息失败')
