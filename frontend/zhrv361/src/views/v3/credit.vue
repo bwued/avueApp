@@ -93,6 +93,9 @@ export default {
     const token = this.$util.getQueryVariable('token')
     if (token) {
       this.$store.dispatch('SetToken', token)
+      // window.location.reload(true)
+    } else {
+      // window.location.reload(true)
     }
     // alert(window.location.href.substr(window.location.href.indexOf('?') + 1))
     // alert(token)
@@ -361,7 +364,7 @@ export default {
   }
   .z_check.wdfs{left:0%; top:0;}
   .colorfff.size36.textEllipsis{padding-top:0.5rem;}
-  .wdfs{font-size:13px; font-family: cursive;}
+  .wdfs{font-size:13px;}
   .add_card {
 		width: 90%;
 		height: 120px;

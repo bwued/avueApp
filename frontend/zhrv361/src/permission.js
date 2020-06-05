@@ -37,29 +37,30 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      console.log('store.getters.userInfo: ', store.getters.userInfo)
-      // 判断当前用户是否已拉取完user_info信息
-      if (!store.getters.userInfo) {
-        store.dispatch('GetUserInfo').then((res) => {
-          console.log('GetUserInfo one res: ', res)
-          console.log('userInfo: ', store.getters.userInfo)
-          next({ ...to, replace: true })
-        }).then((res) => {
-          console.log('GetUserInfo two then res: ', res)
-          /* 获取agentId向后端发送请求 */
-          if (localStorage.getItem('AGENTID')) {
-            console.log('获取agentId向后端发送请求')
-            api.center.postAgentId(localStorage.getItem('AGENTID'))
-          }
-        }).catch((err) => {
-          console.error('GetUserInfo err: ', err)
-          store.dispatch('LogOut').then(() => {
-            next({ path: '/login' })
-          })
-        })
-      } else {
-        next()
-      }
+      next()
+      // console.log('store.getters.userInfo: ', store.getters.userInfo)
+      // // 判断当前用户是否已拉取完user_info信息
+      // if (!store.getters.userInfo) {
+      //   store.dispatch('GetUserInfo').then((res) => { 
+      //     console.log('GetUserInfo one res: ', res)
+      //     console.log('userInfo: ', store.getters.userInfo)
+      //     next({ ...to, replace: true })
+      //   }).then((res) => {
+      //     console.log('GetUserInfo two then res: ', res)
+      //     /* 获取agentId向后端发送请求 */
+      //     if (localStorage.getItem('AGENTID')) {
+      //       console.log('获取agentId向后端发送请求')
+      //       api.center.postAgentId(localStorage.getItem('AGENTID'))
+      //     }
+      //   }).catch((err) => {
+      //     console.error('GetUserInfo err: ', err)
+      //     store.dispatch('LogOut').then(() => {
+      //       next({ path: '/login' })
+      //     })
+      //   })
+      // } else {
+      //   next()
+      // }
     }
   } else {
     /* has no token*/

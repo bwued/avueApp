@@ -228,7 +228,7 @@
     </van-popup>
     <!-- 确认账单 -->
     <confirm-bill
-      :bank-card-id="bankMsg.id"
+      :bank-card-id="cardId"
       :min-date="fromDate"
       :max-date="endDate"
       :show-confirm-bill="showConfirmBill"
@@ -243,11 +243,11 @@
 
     <div v-if="isbindCard" class="add-page">
       <template v-if="!isbindCardhk">
-        <bind-card :from-intelligence-page="true" :hide-bind-card="hideBindCardFun" :c-id="bankMsg.id" :c-code="channel_code" @toSuccess="showConfirmBillFun" />
+        <bind-card :from-intelligence-page="true" :hide-bind-card="hideBindCardFun" :c-id="cardId" :c-code="channel_code" @toSuccess="showConfirmBillFun" />
       </template>
       <!--    汇卡通道 h5 xml 签约页面 -->
       <template v-if="isbindCardhk">
-        <bind-cardh :from-intelligence-page="true" :hide-bind-card="hideBindCardFun" :c-id="bankMsg.id" :c-code="channel_code" @toSuccess="showConfirmBillFun" />
+        <bind-cardh :from-intelligence-page="true" :hide-bind-card="hideBindCardFun" :c-id="cardId" :c-code="channel_code" @toSuccess="showConfirmBillFun" />
       </template>
     </div>
   </div>
@@ -337,7 +337,7 @@ export default {
       },
       channel_code: this.$route.query.code, // 渠道代码
       z_user_rate: this.$route.query.z_user_rate || '', // 大额费率
-      cardId: '', // 卡id
+      cardId: this.$util.getQueryVariable('cardId'), // 当前信用卡id, // 卡id
       cardType: 'CREDIT', // cardType 银行卡类型  ：CREDIT 信用卡  DEBIT 储蓄卡
       cardId1: '', // 卡id
       cardType1: 'DEBIT',
@@ -511,7 +511,7 @@ export default {
           that.showSelectDepositCard = true
           //  that.regchannel(this.cardType1,this.cardId1, this.channel_code) //注册接口
         } else {
-          that.bbbindChannelCard(this.channel_code, this.cardId, this.cardType) // 判断签约接口
+          that.bbbindChannelCard(this.channel_code, this.cardId, this.cardType) // 判断签约接口 
         }
       }).catch(err => {
         console.log(err)

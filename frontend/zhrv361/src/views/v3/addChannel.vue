@@ -54,18 +54,19 @@
     </van-popup>
 
     <div class="plan">
-      <!-- <div type="message" class="item intelligence disnone" @click="Intell">
+      <!-- <div type="message" class="item intelligence" @click="Intell">
         <img src="../../../static/img/addcard.png">
-        <span style="color:#bf9761;">添加自选计划</span>
+        <span style="color:#bf9761;">添加懒鬼计划</span>
       </div> -->
       <!-- <div class="item custom" @click="Intell_Lazy" style="margin: 0 auto; text-align:center; width:60%;">
         <img src="../../../static/img/addlangui.png">
         <span style="color:#fff;">添加懒人计划</span>
       </div> -->
-      <div type="message" class="item intelligence" @click="Intell_Lazy" style="margin: 0 auto; text-align:center; width:60%;">
+
+      <div type="message" class="item intelligence" @click="Intell" style="margin: 0 auto; text-align:center; width:60%;">
         <img src="../../../static/img/addcard.png">
-        <span style="color:#bf9761;">添加懒人计划</span>
-      </div>
+        <span style="color:#bf9761;">添加懒鬼计划</span>
+      </div> 
     </div>
   </div>
 </template>

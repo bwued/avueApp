@@ -1,8 +1,8 @@
 
-<!-- todo 自选通道  测试环境 20200603-->
+<!-- todo 自选通道--懒鬼计划v3  测试环境 20200603-->
 <template>
   <div class="intelligence-page">
-    <top-msg header-name="添加自选通道" />
+    <top-msg header-name="添加懒鬼计划" />
 
     <div class="page-top">
       <img :src="cardList.bank_logo_image">
@@ -12,13 +12,6 @@
     </div>
 
     <ul class="top-list">
-      <!-- <li class="clear item" @click="showSelectCard=true">
-        <span class="lt text">选择信用卡</span>
-        <span class="rt intro">
-          {{ bankMsg.bank_info&&bankMsg.bank_info.name }}{{ Object.keys(bankMsg).length === 0 && bankMsg.constructor === Object?'':'（尾号' }}{{ bankMsg && bankMsg.card_no }}{{ Object.keys(bankMsg).length === 0 && bankMsg.constructor === Object?'':'）' }}
-          <van-icon name="arrow" />
-        </span>
-      </li> -->
       <li class="clear item">
         <span class="lt text">账单总金额</span>
         <span class="rt">
@@ -26,21 +19,20 @@
         </span>
       </li>
 
-      <li v-if="false" class="clear item">
+      <!-- <li v-if="false" class="clear item">
         <span class="lt text">信用卡预留金额</span>
         <span class="rt">
           <input v-model.number="principal_amount" type="number" class="input-box">
         </span>
-      </li>
+      </li> -->
 
-      <li class="clear item">
+      <!-- <li v-if="false" class="clear item">
         <span class="lt text">消费类型</span>
         <span class="rt">
           <span class="input-box" type="text" @click="showPicker = true">{{ repay_type }}</span>
-          <!-- <input v-model="repay_type" type="text" @click="showPicker = true" class="input-box"> -->
           <van-icon name="arrow" />
         </span>
-      </li>
+      </li> -->
 
       <van-popup v-model="showPicker" position="bottom">
         <van-picker
@@ -51,7 +43,7 @@
         />
       </van-popup>
 
-      <li class="clear item" @click="showDateSelectFun">
+      <li  class="clear item" @click="showDateSelectFun">
         <span class="lt text">选择账单日期</span>
         <van-icon name="arrow" class="rt" />
         <span v-if="dates.length>0" class="rt repay-dates textEllipsis">
@@ -59,14 +51,14 @@
         </span>
       </li>
 
-      <li class="clear item">
+      <!-- <li v-if="false" class="clear item">
         <span class="lt text">每天还款笔数</span>
         <span class="calc-box rt">
           <img src="../../../static/img/calc-plus.png" class="img-btn" @click="value>1?value--:value=1">
           <input v-model="value" type="text" class="input" readonly="readonly">
           <img src="../../../static/img/calc-add.png" class="img-btn" @click="value<repay_type_list.length?value++:value=repay_type_list.length">
         </span>
-      </li>
+      </li> -->
 
       <li class="clear item" @click="showSelectAddress=true">
         <span class="lt text">选择省市</span>
@@ -223,7 +215,7 @@
     </van-popup>
     <!-- 确认账单 -->
     <confirm-bill
-      :bank-card-id="bankMsg.id"
+      :bank-card-id="cardId"
       :min-date="fromDate"
       :max-date="endDate"
       :show-confirm-bill="showConfirmBill"
@@ -238,11 +230,11 @@
 
     <div v-if="isbindCard" class="add-page">
       <template v-if="!isbindCardhk">
-        <bind-card :from-intelligence-page="true" :hide-bind-card="hideBindCardFun" :c-id="bankMsg.id" :c-code="channel_code" @toSuccess="showConfirmBillFun" />
+        <bind-card :from-intelligence-page="true" :hide-bind-card="hideBindCardFun" :c-id="cardId" :c-code="channel_code" @toSuccess="showConfirmBillFun" />
       </template>
       <!--    汇卡通道 h5 xml 签约页面 -->
       <template v-if="isbindCardhk">
-        <bind-cardh :from-intelligence-page="true" :hide-bind-card="hideBindCardFun" :c-id="bankMsg.id" :c-code="channel_code" @toSuccess="showConfirmBillFun" />
+        <bind-cardh :from-intelligence-page="true" :hide-bind-card="hideBindCardFun" :c-id="cardId" :c-code="channel_code" @toSuccess="showConfirmBillFun" />
       </template>
     </div>
   </div>
@@ -395,7 +387,7 @@ export default {
     }
   },
   created() {
-    document.title = '添加自选通道'
+    document.title = '添加懒鬼计划'
     this.areaList = list
     this.getRepayConstraint()
     //    this.getRefundName() // 获取智慧金 todo
@@ -710,15 +702,15 @@ export default {
         repay_days: this.repay_days,
         repay_sum_amount: this.repay_sum_amount * 100,
         //        repay_sum_count: this.value
-        repay_count_per_day: this.value, // 每天还款笔数
-        repay_type: this.reapyType
+        // repay_count_per_day: this.value, // 每天还款笔数
+        // repay_type: this.reapyType
         //        principal_amount: this.principal_amount
       }
       if (!data.city_code) {
         this.$toast.fail('请选择城市')
         return false
       } else if (data.repay_days.length === 0) {
-        this.$toast.fail('请选择到期日')
+        this.$toast.fail('请选择还款日')
         return false
       } else if (!data.repay_sum_amount) {
         this.$toast.fail('请输入账单金额')
@@ -744,7 +736,7 @@ export default {
         this.$toast('最小账单笔数不小于' + this.min_count + '笔')
         return false
       }
-      this.$api.plan.genIntelligent(data).then(res => {
+      this.$api.plan.genIntelligentV3(data).then(res => {
         const billList = []
         if (res.data.code === '200000') {
           console.log('智能生成代还计划')

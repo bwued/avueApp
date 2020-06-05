@@ -123,6 +123,11 @@ export default {
     }
   },
   created() {
+    const token = this.$util.getQueryVariable('token')
+    if (token) {
+      this.$store.dispatch('SetToken', token)
+      this.$router.push('/credit')
+    }
     // this.thisTitle()
     this.getCookie() // coolie保存数据方法
     this.$store.commit('CLEAR_KEEP_ALIVE_ARR')
