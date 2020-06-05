@@ -736,7 +736,8 @@ export default {
         this.$toast('最小账单笔数不小于' + this.min_count + '笔')
         return false
       }
-      this.$api.plan.genIntelligentV3(data).then(res => {
+      this.$api.plan.genIntelligentV3(data).then(res => { // 
+      // this.$api.plan.genIntelligentV2(data).then(res => {
         const billList = []
         if (res.data.code === '200000') {
           console.log('智能生成代还计划')
