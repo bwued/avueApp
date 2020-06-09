@@ -2,7 +2,7 @@
 <!-- todo 自选通道--懒鬼计划v3  测试环境 20200603-->
 <template>
   <div class="intelligence-page">
-    <top-msg header-name="添加懒鬼计划" />
+    <top-msg header-name="添加懒人计划" />
 
     <div class="page-top">
       <img :src="cardList.bank_logo_image">
@@ -108,7 +108,7 @@
             </span>
           </div>
 
-          <div class="clear remaining">
+          <div class="clear remaining dec">
             <span class="lt text">提醒：本次计划信用卡余额不少于：
               <span class="price">{{ billMsg.marginAmount }}元</span>
             </span>
@@ -387,7 +387,7 @@ export default {
     }
   },
   created() {
-    document.title = '添加懒鬼计划'
+    document.title = '添加懒人计划'
     this.areaList = list
     this.getRepayConstraint()
     //    this.getRefundName() // 获取智慧金 todo
@@ -1037,7 +1037,7 @@ export default {
     margin-bottom: 10px;
     .situation{
       width:100%;
-      height:260px;
+      height:300px;
       background:rgba(255,255,255,1);
       box-shadow:0px 10px 20px rgba(14,66,128,0.05);
       border-radius:10px;
@@ -1070,7 +1070,7 @@ export default {
           }
         }
         .dec{
-          margin-top: 30px;
+          margin-top: 10px;
           .text{
             font-size: 24px;
             color: @lightGrey;
@@ -1201,7 +1201,7 @@ export default {
 .text{
   font-size: .8rem;
   color:#999;
-  margin-top: 1rem;
+  // margin-top: 1rem;
   .price{
     color: #ed0202;
   }

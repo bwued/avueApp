@@ -52,7 +52,7 @@
               </div>
             </div>
             <div v-if="currentNav === 1" class="z_check">
-              <button class="btn btn_add" @click="gotoChanel(item.id)">
+              <button class="btn btn_add size26" @click="gotoChanel(item.id)">
                 立即还款
               </button>
             </div>
@@ -353,7 +353,6 @@ export default {
     width: 150px;
     height: 56px;
     line-height: 56px;
-    font-size: 14px;
     color: white;
     border: 1px solid white;
     -webkit-border-radius: 48px;

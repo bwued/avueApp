@@ -27,3 +27,5 @@ VUE_APP_CFCA_AUTH_URL=http://app.zhr168.com/api
 VUE_APP_COLOR_THEME=black
 VUE_CLI_BABEL_TRANSPILE_MODULES=true
 ============================================================
+VUE_APP_BASE_API=http://baiwang168.com.cn/api
+VUE_APP_BASE_API=http://192.168.1.105:8082/api 

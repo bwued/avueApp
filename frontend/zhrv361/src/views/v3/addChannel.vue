@@ -18,7 +18,7 @@
           交易时间：{{ list_item.start_time }}-{{ list_item.end_time }}
         </div>
       </div>
-      <span class="repayment">{{ list_item.is_sign == true ? '已签约' : '未签约' }}</span>
+      <span class="repayment size26">{{ list_item.is_sign == true ? '已签约' : '未签约' }}</span>
     </div>
     <div class="self" @click="getCode()">
       自选通道
@@ -43,7 +43,7 @@
               <div class="clear">
                 <span class="lt dec-text">交易时间：{{ item.start_time }}-{{ item.end_time }}</span>
               </div>
-              <span class="signTest">{{ item.is_sign == true ? '已签约' : '未签约' }}</span>
+              <span class="signTest size26">{{ item.is_sign == true ? '已签约' : '未签约' }}</span>
             </div>
           </li>
           <div class="add-btn" @click="selectChannel()">
@@ -65,7 +65,7 @@
 
       <div type="message" class="item intelligence" @click="Intell" style="margin: 0 auto; text-align:center; width:60%;">
         <img src="../../../static/img/addcard.png">
-        <span style="color:#bf9761;">添加懒鬼计划</span>
+        <span style="color:#bf9761;">添加懒人计划</span>
       </div>  
     </div>
   </div>
@@ -285,7 +285,6 @@ export default {
 			border: 1px solid white;
 			border-radius: 10px;
 			color: white;
-			font-size: 20px;
 			margin-top: 30px;
 			margin-left: 67px;
 		}
@@ -503,7 +502,6 @@ export default {
           border: 1px solid #fff;
           border-radius: 10px;
           color: #fff;
-          font-size: 12px;
       }
       }
       img{
@@ -538,7 +536,6 @@ export default {
           border: 1px solid #bf9761;
           border-radius: 10px;
           color: #bf9761;
-          font-size: 12px;
       }
       .detail-btn{
         font-size: 24px;

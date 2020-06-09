@@ -27,5 +27,6 @@ VUE_APP_SHARECODE_URL=http://h5.baiwang168.com.cn/index.html
 VUE_APP_CFCA_AUTH_URL=http://app.zhr168.com/api
 VUE_APP_COLOR_THEME=black
 --------------------------------------------------
-
+VUE_APP_BASE_API=http://192.168.1.105:8082/api 
+VUE_APP_BASE_API=http://192.168.1.105:8082/api 
 
