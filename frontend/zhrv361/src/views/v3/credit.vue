@@ -45,7 +45,7 @@
                 <span style="color:#fff; float:right; padding-right:15px;" @click="gotoPlist(item)">还款记录<van-icon name="arrow" class="rt" /></span>
               </h5>
               <div class="z_check wdfs">
-                <p><span class="cf9">卡额度：</span>{{ item.card_info.credit_amount == 0 ? '--' : item.card_info.credit_amount}}</p>
+                <p><span class="cf9">卡额度：</span>{{ item.card_info.credit_amount == 0 ? '--' : item.card_info.credit_amount }}</p>
                 <p><span class="cf9">账单日：</span>{{ item.card_info.bill_date }}号 &nbsp;&nbsp;<span class="cf9">还款日：</span>{{ item.card_info.repayment_date }}号</p>
                 <p><span class="cf9">剩余还款时间：</span>{{ item.remain_repay_day }}天</p>
               </div>
@@ -154,10 +154,12 @@ export default {
       })
     },
     gotoChanel(id, state) {
-      if (state !== 2) {
-        return { '1': '未出账单', '2': '立即还款', '3': '还款中' }[state]
+      if (state !== 3) {
+        // return { '1': '未出账单', '2': '立即还款', '3': '还款中' }[state]
+        this.$router.push({ path: '/addChannel', query: { cardId: id }})
+      } else {
+        this.$router.push({ path: '/v3planList', query: { cardId: id }})
       }
-      this.$router.push({ path: '/addChannel', query: { cardId: id }})
     },
     /* 点击解绑银行卡 currentNav 1信用卡 0储蓄卡*/
     deleteCardFun(id) {
