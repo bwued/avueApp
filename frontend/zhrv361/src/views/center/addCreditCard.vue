@@ -22,6 +22,14 @@
             <span v-else class="size30">{{ bankSelect.name }}</span>
           </div>
         </div>
+        <div class="form_cell">
+          <div class="form_cellHd">
+            <label class="form_label">卡额度</label>
+          </div>
+          <div class="form_cellBd">
+            <input v-model="credit_amount" class="form_input" type="number" placeholder="请输入信用卡额度">
+          </div>
+        </div>
         <!--目前下面两个cell 先不显示 -->
         <div class="form_cell">
           <div class="form_cellHd">
@@ -188,6 +196,7 @@ export default {
       CVN2: '', // CVN2
       validity: '', // 有效期
       tel: '', // 预留手机号
+      credit_amount: '', // 信用卡额度
       sms_code: '', // 验证码
       isGetCode: false, // 是否有获取验证码 true 已获取
       num: 60, // 验证码num
@@ -380,8 +389,8 @@ export default {
           lass_three_cvn2: that.CVN2,
           valid_date: (that.validityMonthSelect + '').concat(that.validityYearSelect),
           bill_date: that.useDateList.num,
-          repayment_date: that.repayDateList.num
-          // sms_code: that.sms_code
+          repayment_date: that.repayDateList.num,
+          credit_amount: that.credit_amount
         }
         that.bgShow = true
         that.$api.card.bindCard('CREDIT', data).then(res => {

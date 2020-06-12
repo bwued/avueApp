@@ -35,24 +35,26 @@
           <span v-if="currentNav === 1" class="size28 color999">共 {{ cardMsg.length }} 张信用卡</span>
         </div>
         <div class="list_items">
+          <!-- <div v-for="(item) in cardMsg" :key="item.id" :class="currentNav === 1 ? 'list_item flex flex_alCen' : 'list_item2 flex flex_alCen'" @click="gotoEditCard(item.id,item.card_info.auth)"> -->
           <div v-for="(item) in cardMsg" :key="item.id" :class="currentNav === 1 ? 'list_item flex flex_alCen' : 'list_item2 flex flex_alCen'">
             <div class="card_logo">
               <img :src="item.bank_info && item.bank_info.bank_logo_image.url">
             </div>
             <div class="flex1 w70">
-              <h5 class="colorfff size30" style="height:30px; line-height:30px; border-bottom:1px solid #eee;">
-                <span style="color:#fff; opacity: 0.9;">{{ item.bank_info ? item.bank_info.name : '' }}{{ item.card_info.card_no.substr(item.card_info.card_no.length-4) }} </span>
-                <span style="color:#fff; float:right; padding-right:15px;" @click="gotoPlist(item)">还款记录<van-icon name="arrow" class="rt" /></span>
+              <h5 class="colorfff size30">
+                {{ item.bank_info ? item.bank_info.name : '' }}
+                <!-- {{item.card_info.card_no.substr(item.card_info.card_no.length-4)}}  -->
               </h5>
+              <p class="colorfff size36 textEllipsis">
+                {{ '**** **** *** ' + item.card_info.card_no.substr(item.card_info.card_no.length-4) }}
+              </p>
               <div class="z_check wdfs">
-                <p><span class="cf9">卡额度：</span>{{ item.card_info.credit_amount == 0 ? '--' : item.card_info.credit_amount}}</p>
-                <p><span class="cf9">账单日：</span>{{ item.card_info.bill_date }}号 &nbsp;&nbsp;<span class="cf9">还款日：</span>{{ item.card_info.repayment_date }}号</p>
-                <p><span class="cf9">剩余还款时间：</span>{{ item.remain_repay_day }}天</p>
+                <p>账单日：{{ item.card_info.bill_date }}号  还款日：{{ item.card_info.repayment_date }}号</p>
               </div>
             </div>
-            <div v-if="currentNav === 1" class="z_check pay_btn">
-              <button class="btn btn_add size26" @click="gotoChanel(item.id,item.repay_state)">
-                {{ item.repay_state | stateFilter }}
+            <div v-if="currentNav === 1" class="z_check">
+              <button class="btn btn_add size26" @click="gotoChanel(item.id)">
+                立即还款
               </button>
             </div>
           </div>
@@ -73,11 +75,6 @@ import topMsg from '@/components/topMsg'
 export default {
   name: 'MyCard',
   components: { topMsg },
-  filters: {
-    stateFilter(status) {
-      return { '1': '未出账单', '2': '立即还款', '3': '还款中' }[status]
-    }
-  },
   /* data必须是函数*/
   data: function() {
     return {
@@ -111,9 +108,6 @@ export default {
     /* 设置标题*/
     thisTitle: function() {
       document.title = '我的银行卡'
-    },
-    gotoPlist(item) {
-      this.$router.push({ path: '/v3planList', query: { cardId: item.id }})
     },
     /* 切换toggle*/
     toggle(i) {
@@ -153,10 +147,7 @@ export default {
         console.log(error)
       })
     },
-    gotoChanel(id, state) {
-      if (state !== 2) {
-        return { '1': '未出账单', '2': '立即还款', '3': '还款中' }[state]
-      }
+    gotoChanel(id) {
       this.$router.push({ path: '/addChannel', query: { cardId: id }})
     },
     /* 点击解绑银行卡 currentNav 1信用卡 0储蓄卡*/
@@ -250,7 +241,6 @@ export default {
     // position: relative;
   }
   .list_item{
-    position: relative;
     width: 702px;
     height: 200px;
     margin: 0 auto 20px;
@@ -275,16 +265,13 @@ export default {
   }
   .card_logo{
     text-align: center;
-    width: 15%;
+    width: 20%;
   }
   .card_logo >img{
-    width: 68px;
-    height: 68px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
   }
-  .cf9{color: #f5f5f5; opacity: 0.9; font-size: 24px;}
-  .rt{ color: #fff; margin-top: 14px;}
-  .pay_btn.z_check{position: absolute!important; top: 45%; left: 75%;}
   .lineheight70{
     line-height: 70px;
   }
@@ -367,7 +354,7 @@ export default {
     width: 150px;
     height: 56px;
     line-height: 56px;
-    color: #ffffff;
+    color: white;
     border: 1px solid white;
     -webkit-border-radius: 48px;
     border-radius: 48px;

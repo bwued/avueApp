@@ -68,7 +68,7 @@
         <!-- FAILED - 提出还款金 第二个接口未提取状态才可以提取TODO:-->
         <!-- PENDING,PROCESSING,FAIL,REMITTED -->
         <!-- 未提取、处理中、失败、已提取 -->
-        <span v-if="details.repay_plan_info&&details.repay_plan_info.repay_plan_info.execute_state==='FAILED'&&showConfirmMsg.repay_state==='PENDING'" class="btn propose" @click="propose">提出智能账单金额</span>
+        <span v-if="details.repay_plan_info&&details.repay_plan_info.repay_plan_info.execute_state==='FAILED'&&showConfirmMsg.repay_state==='PENDING'" class="btn" @click="propose">提出智能账单金额</span>
         <!-- EXECUTING FAILED- 软删除 -->
         <span v-else-if="details.repay_plan_info && ['SUCCESS', 'FAILED'].indexOf(details.repay_plan_info.repay_plan_info.execute_state) >= 0 " class="btn" @click="confirmDel">删除计划</span>
       </div>
@@ -331,7 +331,7 @@ export default {
         .btn{
           width:210px;
           height:74px;
-          border:2px solid rgba(0,134,242,1);
+          border:2px solid #bf9761;
           border-radius:10px;
           display: inline-block;
           text-align: center;

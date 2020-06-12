@@ -155,6 +155,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "addChannel" */ '@/views/v3/addChannel')
   },
   {
+    path: '/v3planList',
+    name: 'v3planList',
+    meta: { title: '计划列表', index: 1.2 }, // meta对象的index用来定义当前路由的层级,由小到大,由低到高 0级表示tab
+    component: () => import(/* webpackChunkName: "v3planList" */ '@/views/v3/v3planList')
+  },
+  {
     path: '/zxChannel',
     name: 'zxChannel',
     meta: { index: 3.1 },
