@@ -154,12 +154,14 @@ export default {
       })
     },
     gotoChanel(id, state) {
-      if (state !== 3) {
-        // return { '1': '未出账单', '2': '立即还款', '3': '还款中' }[state]
-        this.$router.push({ path: '/addChannel', query: { cardId: id }})
-      } else {
-        this.$router.push({ path: '/v3planList', query: { cardId: id }})
-      }
+      this.$router.push({ path: '/addChannel', query: { cardId: id }})
+      // if (state !== 3) {
+      //   // return { '1': '未出账单', '2': '立即还款', '3': '还款中' }[state]
+      //   this.$router.push({ path: '/addChannel', query: { cardId: id }})
+      // } else {
+      //   this.$router.push({ path: '/v3planList', query: { cardId: id }})
+      // }
+
     },
     /* 点击解绑银行卡 currentNav 1信用卡 0储蓄卡*/
     deleteCardFun(id) {

@@ -12,11 +12,6 @@
     </div>
 
     <ul class="top-list">
-      <li class="clear item" @click="showSelectAddress=true">
-        <span class="lt text">选择省市</span>
-        <van-icon name="arrow" class="rt" />
-        <span class="rt text">{{ selectedAreaList.all }}</span>
-      </li>
       <li class="clear item">
         <span class="lt text">账单总金额</span>
         <span class="rt">
@@ -48,6 +43,14 @@
         />
       </van-popup>
 
+      <li class="clear item" @click="showDateSelectFun">
+        <span class="lt text">选择账单日期</span>
+        <van-icon name="arrow" class="rt" />
+        <span v-if="dates.length>0" class="rt repay-dates textEllipsis">
+          <span v-for="(item,index) in dates" :key="index" class="text">{{ item.getDate() }}, </span>
+        </span>
+      </li>
+
       <!-- <li v-if="false" class="clear item">
         <span class="lt text">每天还款笔数</span>
         <span class="calc-box rt">
@@ -56,18 +59,13 @@
           <img src="../../../static/img/calc-add.png" class="img-btn" @click="value<repay_type_list.length?value++:value=repay_type_list.length">
         </span>
       </li> -->
-    </ul>
 
-    <ul class="top-list">
-      <li class="clear item" @click="showDateSelectFun">
-        <span class="lt text">自定义账单日期</span>
+      <li class="clear item" @click="showSelectAddress=true">
+        <span class="lt text">选择省市</span>
         <van-icon name="arrow" class="rt" />
-        <span v-if="dates.length>0" class="rt repay-dates textEllipsis">
-          <span v-for="(item,index) in dates" :key="index" class="text">{{ item.getDate() }}, </span>
-        </span>
+        <span class="rt text">{{ selectedAreaList.all }}</span>
       </li>
     </ul>
-
     <div class="add-btn flex-vertical-centering" @click="addBill">
       <div class="flex-row-center">
         <i class="iconfont icon-jia" />
@@ -703,7 +701,7 @@ export default {
         bank_card_id: this.$util.getQueryVariable('cardId'), // 当前信用卡id,
         channel_code: this.channel_code,
         city_code: this.selectedAreaList.region,
-        repay_days: this.repay_days.length > 0 ? this.repay_days : [], // 自定义还款时间，非必填项 []
+        repay_days: this.repay_days,
         repay_sum_amount: this.repay_sum_amount * 100,
         //        repay_sum_count: this.value
         // repay_count_per_day: this.value, // 每天还款笔数
@@ -713,18 +711,16 @@ export default {
       if (!data.city_code) {
         this.$toast.fail('请选择城市')
         return false
+      } else if (data.repay_days.length === 0) {
+        this.$toast.fail('请选择还款日')
+        return false
       } else if (!data.repay_sum_amount) {
         this.$toast.fail('请输入账单金额')
         return false
       } else if (data.principal_amount == 0 || !data.principal_amount) {
         this.$toast.fail('建议信用卡预留金额大于还款金额的10%')
         return false
-      } 
-      // else if (data.repay_days.length === 0) {
-      //   this.$toast.fail('请选择还款日')
-      //   return false
-      // } 
-      
+      }
       /* 渠道代还限制*/
       await this.$api.plan.repayChannelConstraint(this.repay_sum_amount * 100, this.channel_code).then(res => {
         console.log(res)
@@ -946,19 +942,6 @@ export default {
 @col9: #999;
 @white: white;
 @bg: #bf9761;
-.self {
-		width: 140px;
-		height: 54px;
-		line-height: 54px;
-		text-align: center;
-		font-size: 24px;
-		color: #bf9761;
-		border: 1px solid #bf9761;
-		border-radius: 100px;
-		position: relative;
-		left: 570px;
-		top: 30px;
-	}
 .page-top {
 		border-top: 1px solid #f5f5f5;
 		display: flex;
