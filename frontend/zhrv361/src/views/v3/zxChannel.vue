@@ -61,6 +61,7 @@
     <ul class="top-list">
       <li class="clear item" @click="showDateSelectFun">
         <span class="lt text">自定义账单日期</span>
+        <!-- <span><van-icon name="close" /> </span> -->
         <van-icon name="arrow" class="rt" />
         <span v-if="dates.length>0" class="rt repay-dates textEllipsis">
           <span v-for="(item,index) in dates" :key="index" class="text">{{ item.getDate() }}, </span>
@@ -209,6 +210,9 @@
       />
       <div class="confirm-btn" @click="getDate">
         确定
+      </div>
+      <div class="close-btn" @click="setTime">
+        清除
       </div>
     </van-popup>
     <!-- 地址 -->
@@ -447,7 +451,7 @@ export default {
         //            }
 
         //            this.repay_sum_amount = Math.floor(this.repay_sum_amount)
-        this.principal_amount = parseInt(this.repay_sum_amount) * 0.1
+        this.principal_amount = Math.round(parseInt(this.repay_sum_amount) * 0.1)
         console.log(this.repay_sum_amount)
       }
     },
@@ -596,6 +600,11 @@ export default {
       this.showTimeSelect = true
       this.index = index
       this.i = i
+    },
+    setTime() {
+      this.repay_days = []
+      this.dates = []
+      this.getDate()
     },
     closeTime() {
       if (parseInt(this.hour) < 10) {
@@ -1173,7 +1182,7 @@ export default {
       box-sizing: border-box;
     }
     .confirm-btn{
-      width:460px;
+      width:250px;
       height:74px;
       background: #BF9761;
       // .bgGradient(135deg,@gradientA 0%,@gradientB 100%);
@@ -1183,8 +1192,22 @@ export default {
       line-height: 74px;
       position: absolute;
       bottom: 13px;
-      left: 50%;
-      transform: translate(-50%,0);
+      left: 10%;
+      // transform: translate(-50%,0);
+    }
+    .close-btn{
+      width:250px;
+      height:74px;
+      background: #8a8086;
+      // .bgGradient(135deg,@gradientA 0%,@gradientB 100%);
+      border-radius:10px;
+      color: #fff;
+      text-align: center;
+      line-height: 74px;
+      position: absolute;
+      bottom: 13px;
+      right: 10%;
+      // transform: translate(-50%,0);
     }
   }
   .picker{
