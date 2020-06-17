@@ -20,14 +20,14 @@
       <li class="clear item">
         <span class="lt text">账单总金额</span>
         <span class="rt">
-          <input v-model.number="repay_sum_amount" type="number" class="input-box" @change="changeNum">
+          <input v-model.number="repay_sum_amount" type="tel" maxlength="6" class="input-box" @change="changeNum">
         </span>
       </li>
 
       <li class="clear item">
         <span class="lt text">信用卡预留金额</span>
         <span class="rt">
-          <input v-model.number="principal_amount" type="number" class="input-box">
+          <input v-model.number="principal_amount" type="number" maxlength="6" class="input-box">
         </span>
       </li>
 
