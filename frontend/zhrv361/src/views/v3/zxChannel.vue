@@ -728,7 +728,10 @@ export default {
       } else if (data.principal_amount == 0 || !data.principal_amount) {
         this.$toast.fail('建议信用卡预留金额大于还款金额的10%')
         return false
-      } 
+      } else if (data.principal_amount > data.repay_sum_amount) {
+        this.$toast.fail('信用卡预留金额不能大于账单总金额')
+        return false
+      }
       // else if (data.repay_days.length === 0) {
       //   this.$toast.fail('请选择还款日')
       //   return false

@@ -16,7 +16,7 @@
             <label class="form_label">所属银行</label>
           </div>
           <div class="form_cellBd">
-            <span class="size30">{{ cardName}}</span>
+            <span class="size30">{{ cardName }}</span>
           </div>
         </div>
         <div class="form_cell">
@@ -32,7 +32,7 @@
             <label class="form_label">有效期</label>
           </div>
           <div class="form_cellBd">
-            <span class="size30 inline_block w30">{{ validityMonth}}</span>
+            <span class="size30 inline_block w30">{{ validityMonth }}</span>
             <span>月</span>
             <span class="w10 inline_block cen" style="color: #BEBEBE;"> / </span>
             <span class=" size30 inline_block w30">{{ validityYear }}</span>
@@ -157,25 +157,22 @@ export default {
     thisTitle: function() {
       document.title = '获取验证码'
     },
-     /* 获取信用卡信息 new 20200604*/
+    /* 获取信用卡信息 new 20200604*/
     getCreditCardInfo() {
-     const that = this
+      const that = this
       that.$api.card
         .getCredItInfo(that.$util.getQueryVariable('cardId')).then(res => {
 				  that.cardName = res.data.data.bank_info.name
 				  that.creditCardId = res.data.data.card_no
 				  that.CVN2 = res.data.data.lass_three_cvn2
           that.tel = res.data.data.card_phone_number
-          //获取有效期
-					that.validityMonth = res.data.data.valid_date.substr(0, 2);
-					that.validityYear = '20' + res.data.data.valid_date.substr(2);
-      
-          
+          // 获取有效期
+          that.validityMonth = res.data.data.valid_date.substr(0, 2)
+          that.validityYear = '20' + res.data.data.valid_date.substr(2)
         }).catch(err => {
           console.log(err)
           // Toast('获取信用卡信息失败')
         })
-     
     },
     /* 获取验证码 渠道绑卡过程，会发送验证码到用户手机*/
     getCodeFun1() {
@@ -301,13 +298,26 @@ export default {
         that.$api.card.bindChannelCardConfirm('CREDIT', that.cardId, that.channelCode, that.bizOrderNumber, data).then(res => {
           const state = res.data.data.state
           const errorMsg = res.data.data.errorMsg
-          if (state != '000') {
+          const isSign = res.data.data.isSign
+          // debugger
+          if (state !== '000') {
             Toast(errorMsg)
           } else {
-            Toast(errorMsg)
-            that.hideBindCard()
-            that.$emit('toSuccess')
-            that.isLoading.clear()
+            if (isSign === 't') { // 信用卡绑卡签约成功 则返回上一页
+              that.$dialog({
+                title: errorMsg,
+                showCancelButton: false,
+                confirmButtonText: '确定',
+                className: 'dialog',
+                closeOnClickOverlay: true
+              }).then(() => {
+                that.$emit('toSuccess')
+                that.isLoading.clear()
+                that.$router.go(-1) // TODO 返回上一页
+              })
+            } else {
+              Toast(errorMsg)
+            }
           }
         })
       }

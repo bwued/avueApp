@@ -45,9 +45,8 @@
         <router-link to="/forgetPassword" class="z_wj" tag="div">
           忘记密码 ?
         </router-link> -->
-        <button type="button" class="btn btn_submit" @click="submit">
-          登录
-        </button>
+        <button v-if="isLogin" type="button" class="btn btn_submit" @click="submit">登录</button>
+        <van-button v-else class="btn btn_submit" loading="isloading" type="info" color="linear-gradient(to right, #4bb0ff, #6149f6)" loading-text="登录中..." />
 
         <!-- <van-checkbox v-model="isSelect" class="z_agreement">
               我已阅读并同意<router-link to="/agreement" class="login_agreement">
@@ -97,9 +96,9 @@
 
 <script>
 import Vue from 'vue'
-import { Checkbox, CheckboxGroup } from 'vant'
+import { Checkbox, CheckboxGroup, Button } from 'vant'
 
-Vue.use(Checkbox).use(CheckboxGroup)
+Vue.use(Checkbox).use(CheckboxGroup).use(Button)
 import { Toast } from 'vant'
 export default {
   name: 'Login',
@@ -107,6 +106,8 @@ export default {
     this.timer = null
     this.code_idx = 60
     return {
+      isloading: true,
+      isLogin: true,
       isSelect: false, // 电子协议是否选中
       login_type: 'fast_login',
       login_bg: require('../../../static/img/logobeji.png'),
@@ -226,10 +227,12 @@ export default {
           username: that.tel,
           password: that.password
         }
+        that.isLogin = false
         that.$api.login
           .loginFun(datas)
           .then(res => {
             this.$store.commit('SET_KEEP_ALIVE_ARR')
+            that.isLogin = true
             that.$store
               .dispatch('SetToken', res.headers.authorization)
               .then(() => {
@@ -241,6 +244,7 @@ export default {
               })
           })
           .catch(res => {
+            that.isLogin = true
             const data = res.data
             var msg = '用户名或密码错误，请重新输入'
             if (data.code === '401001') {
@@ -458,6 +462,7 @@ export default {
   height: 80px;
   border-radius: 4px;
   font-size: 30px;
+  .van-button__loading-text{color: #fff!important;}
   &:active {
     opacity: 0.7;
   }
