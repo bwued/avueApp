@@ -56,6 +56,7 @@
           </div>
           <div class="form_cellFt">
             <button v-if="!isGetCode" class="btn_getCode" @click="getCodeFun">
+            <!-- <button v-if="!isGetCode" class="btn_getCode" @click="nosmsSumbit"> -->
               获取验证码
             </button>
             <button v-else class="btn_stay">
@@ -107,6 +108,7 @@ export default {
       validityMonth: '', // 有效期
       validityYear: '', // 有效期
       isGetCode: false, // 是否有获取验证码 true 已获取
+      smsFlag: 1, // 0: 不需要短信输入框, 1默认值需要==》大额通道调整202006
       num: 60, // 验证码num
       timer: '', // setInterval
       bankSelect: {}, // 选择的银行卡
@@ -148,7 +150,7 @@ export default {
       this.validityYearList.push('20' + i)
     }
     this.thisTitle()
-    this.getBankListFun()
+    // this.getBankListFun()
     // this.getCreditCardMsg()
     this.getCreditCardInfo()
   },
@@ -174,39 +176,7 @@ export default {
           // Toast('获取信用卡信息失败')
         })
     },
-    /* 获取验证码 渠道绑卡过程，会发送验证码到用户手机*/
-    getCodeFun1() {
-      const that = this
-      if (!that.isGetCode) {
-        console.log('获取验证码')
-        that.isGetCode = true
-        that.timer = setInterval(() => {
-          if (that.num !== 0) {
-            that.num--
-          } else {
-            that.isGetCode = false
-            that.num = 60
-            clearInterval(that.timer)
-          }
-        }, 1000)
-      }
-      const data = {
-        creditCardId: that.creditCardId,
-        tel: that.tel
-      }
-      that.$api.card.getVerificationCode('CREDIT', data).then(res => {
-        console.log('进入渠道绑卡')
-        // alert(222222222222)
-        that.codeToken = res.data.token
-        console.log(res)
-        console.log(that.codeToken)
-      }).catch(() => {
-        that.isGetCode = false
-        that.num = 60
-        clearInterval(that.timer)
-      })
-    },
-
+    
     /* 获取验证码 渠道绑卡过程，会发送验证码到用户手机*/
     getCodeFun() {
       const that = this
@@ -223,12 +193,11 @@ export default {
           }
         }, 1000)
       }
-      // that.$api.card.getVerificationCode('CREDIT').then(res =>{
       that.$api.card.bindChannelCard('CREDIT', that.cardId, that.channelCode).then(res => {
         console.log(res.data.data.state)
-        // console.log(res.data.data.bizOrderNumber)
         const state = res.data.data.state
         const errorMsg = res.data.data.errorMsg
+        const smsFlag = res.data.data.smsFlag
         this.bizOrderNumber = res.data.data.bizOrderNumber
         if (state != '000') {
           console.log(errorMsg)
@@ -243,7 +212,10 @@ export default {
             clearInterval(that.timer)
           }
         }
-        // alert(222222222222)
+        if (smsFlag === 0) { // TODO 免短信验证银行签约 202006 victor
+          console.log('免短信验证银行签约:::' + smsFlag)
+          alert(smsFlag)
+        }
         console.log('进入渠道绑卡')
         that.codeToken = res.data.token
         console.log(res)
@@ -252,6 +224,20 @@ export default {
         that.isGetCode = false
         that.num = 60
         clearInterval(that.timer)
+      })
+    },
+    nosmsSumbit() { // TODO 弹窗提示免短信验证银行签约 202006 victor
+      const that = this
+      that.$dialog({
+        title: '温馨提示',
+        message: '该信用卡免短信签约，确定签约？',
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        className: 'dialog',
+        closeOnClickOverlay: true
+      }).then(res => {
+        that.confirmBindCard(that.code = true)
       })
     },
     /* 获取信用卡信息*/
@@ -322,43 +308,6 @@ export default {
         })
       }
     },
-    /* 点击确认，确定绑卡，绑卡后成功后直接运行 支付 函数进行下一步操作，不需要跳回结算页*/
-    // async confirmBindCard1() {
-    //   const that = this
-    //   if (!that.code) {
-    //     that.$dialog({
-    //       title: '请输入收到的验证码',
-    //       showCancelButton: false,
-    //       confirmButtonText: '确定',
-    //       className: 'dialog',
-    //       closeOnClickOverlay: true
-    //     })
-    //   } else {
-    //     const data = {
-    //       captcha_code: that.code
-    //     }
-
-    //     that.isLoading = this.$toast.loading({
-    //       duration: 3000, // 持续展示 toast
-    //       forbidClick: true, // 禁用背景点击
-    //       loadingType: 'spinner',
-    //       message: '请稍候...'
-    //     })
-
-    //     await that.$api.card.bindChannelCardConfirm('CREDIT', that.cardId, that.channelCode,that.bizOrderNumber, data)
-    //      const state=res.data.data.state
-    //     if(state !="000"){
-    //          console.log(errorMsg)
-    //       }
-    //     if (that.fromIntelligencePage) {
-    //       that.hideBindCard()
-    //       that.$emit('toSuccess')
-    //       that.isLoading.clear()
-    //     } else {
-    //       await that.payFun()
-    //     }
-    //   }
-    // },
     /* 支付*/
     payFun() {
       const that = this
