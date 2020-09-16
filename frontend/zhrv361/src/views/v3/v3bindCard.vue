@@ -56,7 +56,7 @@
           </div>
           <div class="form_cellFt">
             <button v-if="!isGetCode" class="btn_getCode" @click="getCodeFun">
-            <!-- <button v-if="!isGetCode" class="btn_getCode" @click="nosmsSumbit"> -->
+              <!-- <button v-if="!isGetCode" class="btn_getCode" @click="nosmsSumbit"> -->
               获取验证码
             </button>
             <button v-else class="btn_stay">
@@ -176,7 +176,7 @@ export default {
           // Toast('获取信用卡信息失败')
         })
     },
-    
+
     /* 获取验证码 渠道绑卡过程，会发送验证码到用户手机*/
     getCodeFun() {
       const that = this
@@ -211,11 +211,14 @@ export default {
             that.isGetCode = false
             clearInterval(that.timer)
           }
+        } else {
+          if (smsFlag === 0) { // TODO 免短信验证银行签约 202006 victor
+            console.log('免短信验证银行签约:::' + smsFlag)
+            // alert(smsFlag)
+            that.nosmsSumbit()
+          } 
         }
-        if (smsFlag === 0) { // TODO 免短信验证银行签约 202006 victor
-          console.log('免短信验证银行签约:::' + smsFlag)
-          alert(smsFlag)
-        }
+
         console.log('进入渠道绑卡')
         that.codeToken = res.data.token
         console.log(res)
@@ -228,16 +231,25 @@ export default {
     },
     nosmsSumbit() { // TODO 弹窗提示免短信验证银行签约 202006 victor
       const that = this
-      that.$dialog({
-        title: '温馨提示',
-        message: '该信用卡免短信签约，确定签约？',
-        showCancelButton: true,
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        className: 'dialog',
-        closeOnClickOverlay: true
-      }).then(res => {
-        that.confirmBindCard(that.code = true)
+      // that.$dialog({
+      //   title: '签约成功',
+      //   message: '当前信用卡是免短信签约',
+      //   showCancelButton: false,
+      //   confirmButtonText: '确定',
+      //   // cancelButtonText: '取消',
+      //   className: 'dialog',
+      //   closeOnClickOverlay: true
+      // }).then(res => {
+      //   // that.confirmBindCard(that.code = true)
+      //   that.$emit('toSuccess')
+      //   that.isLoading.clear()
+      //   that.$router.go(-1) // TODO 返回上一页
+      // })
+      that.$dialog.alert({
+        title: '签约成功',
+        message: '当前信用卡是免短信签约'
+      }).then(() => {
+        that.$router.go(-1) // TODO 返回上一页
       })
     },
     /* 获取信用卡信息*/

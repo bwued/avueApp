@@ -29,6 +29,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "forgetPassword" */ '@/views/login/forgetPassword')
   },
   {
+    path: '/pay',
+    name: 'pay',
+    meta: { index: 0.2 },
+    component: () => import(/* webpackChunkName: "pay" */ '@/views/login/pay')
+  },
+  {
     path: '/xieyi',
     name: 'xieyi',
     meta: { index: 0.3 },

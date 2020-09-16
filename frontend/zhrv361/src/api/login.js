@@ -13,6 +13,14 @@ const login = {
       data: data
     })
   },
+  /* */
+  smsConfirmPay(data) {
+    return request({
+      method: 'POST',
+      url: '/trade/smsConfirmPay',
+      data: data
+    })
+  },
   /* 用户注册*/
   userRegister(data) {
     return request({

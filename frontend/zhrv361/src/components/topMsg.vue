@@ -1,9 +1,9 @@
 <template>
   <div v-if="!isWechat" class="header">
     <div class="header_body">
-      <span class="goBack" @click="goBack">
+      <!-- <span class="goBack" @click="goBack">
         <van-icon name="arrow-left" />
-      </span>
+      </span> -->
       <div class="flex-vertical-centering">
         <p class="textEllipsis" @click="showLog">
           {{ headerName }}

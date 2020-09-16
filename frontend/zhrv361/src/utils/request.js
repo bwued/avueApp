@@ -85,7 +85,8 @@ service.interceptors.response.use(
     if (response.data.code === '403000') {
       store.dispatch('LogOut').then(() => {
         tip('登录信息已失效,请重新登录')
-        router.push('/login')
+        // router.push('/login')
+        window.location = '../index.html'
       })
       return Promise.reject(response)
     }
